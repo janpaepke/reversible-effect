@@ -1,0 +1,93 @@
+{
+	"name": "reversible-effect",
+	"title": "reversible",
+	"version": "0.1.0",
+	"description": "A collection of functions, which return a callback to reverse their effect.",
+	"main": "./dist/reversible.umd.js",
+	"module": "./dist/reversible.esm.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"start": "npm run dev",
+		"build": "rollup --config",
+		"dev": "npm run build -- --watch",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"lint": "eslint {./src/**/*.ts,readme.md}",
+		"lint:fix": "npm run lint -- --fix",
+		"prettier": "prettier --check ./src",
+		"prettier:fix": "prettier --write ./src",
+		"scripts:update-deps": "npx npm-check --skip-unused -u",
+		"scripts:release(pre)": "npm version prerelease --preid='beta' && npm run build && npm publish"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/janpaepke/reversible-effect.git"
+	},
+	"author": {
+		"name": "Jan Paepke",
+		"url": "https://janpaepke.de"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/janpaepke/reversible-effect/issues"
+	},
+	"contributors": [],
+	"homepage": "https://github.com/janpaepke/reversible-effect#readme",
+	"devDependencies": {
+		"@rollup/plugin-json": "^4.1.0",
+		"@rollup/plugin-typescript": "^8.3.2",
+		"@typescript-eslint/eslint-plugin": "^5.25.0",
+		"eslint": "^8.15.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-codegen": "^0.16.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"jest": "^28.1.0",
+		"prettier": "^2.6.2",
+		"rollup": "^2.74.0",
+		"rollup-plugin-bundle-size": "^1.0.3",
+		"rollup-plugin-license": "^2.7.0",
+		"rollup-plugin-terser": "^7.0.2",
+		"ts-jest": "^28.0.2",
+		"typescript": "^4.6.4"
+	},
+	"eslintConfig": {
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"ecmaVersion": 9,
+			"sourceType": "module",
+			"ecmaFeatures": {
+				"impliedStrict": true
+			}
+		},
+		"env": {
+			"es6": true,
+			"node": true,
+			"browser": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended",
+			"plugin:prettier/recommended"
+		],
+		"plugins": [
+			"@typescript-eslint",
+			"prettier",
+			"codegen"
+		],
+		"rules": {
+			"codegen/codegen": "error"
+		}
+	},
+	"prettier": {
+		"semi": true,
+		"useTabs": true,
+		"tabWidth": 4,
+		"printWidth": 120,
+		"bracketSpacing": true,
+		"arrowParens": "avoid",
+		"htmlWhitespaceSensitivity": "css",
+		"endOfLine": "lf",
+		"singleQuote": true,
+		"trailingComma": "es5"
+	}
+}

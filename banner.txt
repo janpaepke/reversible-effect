@@ -1,0 +1,5 @@
+<%= pkg.title %> v<%= pkg.version %>
+Author: <%= pkg.author.name %> (<%= pkg.author.url %>)
+Generated: <%= moment().format('YYYY-MM-DD') %>
+License: <%= pkg.license %>
+Homepage: <%= pkg.homepage %>

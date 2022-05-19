@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"baseUrl": "./src",
+		"outDir": "./dist",
+		"strict": true,
+		"removeComments": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"declaration": true
+	}
+}
