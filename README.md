@@ -116,7 +116,7 @@ const cancelInterval = setReversibleInterval(() => console.log('called'), 1000);
 cancelInterval();
 ```
 
-Note that you don't have to keep track of a `timeoutID`, you can pass around is an interval you're cancelling.  
+Note that you don't have to keep track of a `timeoutID`, you can pass around the cleanup function, without knowing it is an interval you're cancelling.  
 It would work just the same for an event:
 
 ```ts
