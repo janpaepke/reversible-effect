@@ -1,7 +1,7 @@
 {
 	"name": "reversible-effect",
 	"title": "reversible",
-	"version": "0.1.1-beta.0",
+	"version": "0.1.1-beta.1",
 	"description": "A collection of functions, which return a callback to reverse their effect.",
 	"main": "./dist/reversible.umd.js",
 	"module": "./dist/reversible.esm.js",
