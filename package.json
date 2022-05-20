@@ -6,6 +6,11 @@
 	"main": "./dist/reversible.umd.js",
 	"module": "./dist/reversible.esm.js",
 	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE.md"
+	],
 	"scripts": {
 		"start": "npm run dev",
 		"build": "rollup --config",
