@@ -42,7 +42,7 @@ type EventMap<T extends TargetsWithSpecificEvents> = Extract<EventMapMap, [T, un
  */
 
 // Overload: Dom Targets with known events
-function reversibleEventListener<T extends TargetsWithSpecificEvents, K extends keyof EventMap<T>>(
+function addReversibleEventListener<T extends TargetsWithSpecificEvents, K extends keyof EventMap<T>>(
 	target: T,
 	type: K,
 	listener: (this: T, ev: EventMap<T>[K]) => unknown,
@@ -50,7 +50,7 @@ function reversibleEventListener<T extends TargetsWithSpecificEvents, K extends 
 ): (options?: boolean | EventListenerOptions) => void;
 
 // Overload: generic version
-function reversibleEventListener(
+function addReversibleEventListener(
 	target: GenericInterface,
 	type: string,
 	listener: EventListenerOrEventListenerObject,
@@ -58,7 +58,7 @@ function reversibleEventListener(
 ): (options?: boolean | EventListenerOptions) => void;
 
 // implementation
-function reversibleEventListener(
+function addReversibleEventListener(
 	target: GenericInterface,
 	type: string,
 	listener: EventListenerOrEventListenerObject,
@@ -68,7 +68,7 @@ function reversibleEventListener(
 	return target.removeEventListener.bind(target, type, listener);
 }
 
-export default reversibleEventListener;
+export default addReversibleEventListener;
 
 // TODO: inference of generics function properties seems to break
 // below example cannot resolve TouchEvent for `event` param in callback

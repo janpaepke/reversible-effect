@@ -1,3 +1,3 @@
-export { default as reversibleTimeout } from './reversibleTimeout';
-export { default as reversibleInterval } from './reversibleInterval';
-export { default as reversibleEventListener } from './reversibleEventListener';
+export { default as setReversibleTimeout } from './setReversibleTimeout';
+export { default as setReversibleInterval } from './setReversibleInterval';
+export { default as addReversibleEventListener } from './addReversibleEventListener';
