@@ -1,6 +1,5 @@
 import path from 'path';
 
-import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
 import bundleSize from 'rollup-plugin-bundle-size';
 import license from 'rollup-plugin-license';
@@ -23,12 +22,8 @@ const esmOutput = {
 };
 
 const tsPluginConfig = {
-	useTsconfigDeclarationDir: true,
-	tsconfigOverride: {
-		compilerOptions: {
-			declarationDir: path.join(__dirname, path.dirname(pkg.types)),
-		},
-	},
+	tsconfig: './tsconfig.json',
+	declarationDir: '', // otherwise goes to subfolder of output
 };
 
 const minificationConfig = {
@@ -50,8 +45,10 @@ const licenseConfig = {
 	},
 };
 
-export default {
-	input: inputFile,
-	output: [umdOutput, esmOutput],
-	plugins: [bundleSize(), json(), typescript(), terser(minificationConfig), license(licenseConfig)],
-};
+export default [
+	{
+		input: inputFile,
+		output: [umdOutput, esmOutput],
+		plugins: [bundleSize(), typescript(tsPluginConfig), terser(minificationConfig), license(licenseConfig)],
+	},
+];

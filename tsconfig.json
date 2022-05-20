@@ -6,6 +6,7 @@
 		"strict": true,
 		"removeComments": false,
 		"esModuleInterop": true,
+		"moduleResolution": "node",
 		"forceConsistentCasingInFileNames": true,
 		"declaration": true
 	}

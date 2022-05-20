@@ -1,5 +1,5 @@
 /**
- * creates an interval and returns a function to remove it
+ * Creates an interval and returns a function to stop it.
  * @param {*} cb callback
  * @param {*} interval interval in ms
  */
