@@ -1,6 +1,6 @@
 # reversible effect ↩️
 
-**A collection of functions returning a callback to reverse their effect.**
+**A collection of typed utility functions returning a callback to reverse their effect.**
 
 Implementation for:
 
@@ -76,10 +76,10 @@ using yarn:
 yarn add reversible-effect
 ```
 
-Now import the required function from the package.
+Just import the required function from the package, here's an example for `addReversibleEventListener`:
 
 ```ts
-import { reversibleFunctionName } from 'reversible-effect'; // this is an example, there is no 'reversibleFunctionName'
+import { addReversibleEventListener } from 'reversible-effect';
 ```
 
 See [below](#documentation) for available functions and how to use them.

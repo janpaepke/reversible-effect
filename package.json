@@ -50,6 +50,7 @@
 		"rollup-plugin-license": "^2.7.0",
 		"rollup-plugin-terser": "^7.0.2",
 		"ts-jest": "^28.0.2",
+		"ts-node": "^10.8.0",
 		"typescript": "^4.6.4"
 	},
 	"eslintConfig": {
