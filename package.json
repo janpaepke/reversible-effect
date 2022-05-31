@@ -15,7 +15,6 @@
 		"start": "npm run dev",
 		"build": "rollup --config",
 		"dev": "npm run build -- --watch",
-		"pretest": "npm run build",
 		"test": "jest && tsd",
 		"test:watch": "jest --watch",
 		"lint": "eslint {./src/**/*.ts,readme.md}",
@@ -23,8 +22,8 @@
 		"prettier": "prettier --check ./src",
 		"prettier:fix": "prettier --write ./src",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
-		"scripts:release(pre)": "npm version prerelease --preid='beta' && npm run build && npm publish",
-		"prepublishOnly": "npm run lint && npm run prettier && npm run test && agadoo"
+		"scripts:release(pre)": "npm version prerelease --preid='beta' && npm publish",
+		"prepublishOnly": "npm run lint && npm run prettier && npm run build && npm run test && agadoo"
 	},
 	"repository": {
 		"type": "git",
