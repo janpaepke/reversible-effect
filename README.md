@@ -187,6 +187,32 @@ function addReversibleEventListener(
 ): (options?: boolean | EventListenerOptions) => void;
 ```
 
+Note that there is shared behaviour with `addEventListener`/`removeEventListener` when called with the same arguments:
+
+1. When adding the same listener multiple times, it will not be added more than once.
+2. A returned cleanup can cancel any listener that was added using the same arguments.
+
+See below examples for details:
+
+```
+const callback = () => console.log('hello');
+const cancel1 = addReversibleEventListener('click', callback);
+const cancel2 = addReversibleEventListener('click', callback);
+//              ⬆ Because the passed callback is the same, it will only execute once, when the event is fired.
+cancel1();
+// ⬆ Even though `cancel2` was technically never called, it can be considered cleaned up and will have no effect.
+```
+
+If you specifically want to add a listener multiple times or make sure a cleanup function only concerns the listener it created, the solution is the same as with the originals – make the callbacks referentially unique:
+
+```
+const cancel1 = addReversibleEventListener('click', e => callback(e));
+const cancel2 = addReversibleEventListener('click', e => callback(e));
+//              ⬆ The listener is referentially different, so the callback is executed twice, when the event is fired.
+cancel1();
+// ⬆ This will only cancel the first listener, the second still fires, until `cancel2()` is called.
+```
+
 #### setReversibleTimeout
 
 Reversible version of `[window.]setTimeout`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/setTimeout)

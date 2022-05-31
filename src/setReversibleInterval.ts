@@ -3,9 +3,9 @@
  * @param {*} cb callback
  * @param {*} interval interval in ms
  */
-const setReversibleInterval = (...args: Parameters<typeof setInterval>): (() => void) => {
-	const ref = setInterval(...args);
-	return () => clearInterval(ref);
-};
+function setReversibleInterval(...args: Parameters<typeof setInterval>): () => void {
+	const ref = global.setInterval(...args);
+	return global.clearInterval.bind(global, ref); // interval-IDs are unique and never reused. multiple calls to clear with the same ID will have no effect.
+}
 
 export default setReversibleInterval;

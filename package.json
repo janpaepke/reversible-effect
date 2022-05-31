@@ -40,10 +40,12 @@
 	"homepage": "https://github.com/janpaepke/reversible-effect#readme",
 	"devDependencies": {
 		"@rollup/plugin-typescript": "^8.3.2",
+		"@types/jest": "^27.5.1",
 		"@typescript-eslint/eslint-plugin": "^5.25.0",
 		"eslint": "^8.15.0",
 		"eslint-plugin-codegen": "^0.16.1",
 		"jest": "^28.1.0",
+		"jest-environment-jsdom": "^28.1.0",
 		"prettier": "^2.6.2",
 		"rollup": "^2.74.0",
 		"rollup-plugin-bundle-size": "^1.0.3",
