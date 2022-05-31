@@ -9,5 +9,6 @@
 		"moduleResolution": "node",
 		"forceConsistentCasingInFileNames": true,
 		"declaration": true
-	}
+	},
+	"include": ["src/**/*"]
 }
