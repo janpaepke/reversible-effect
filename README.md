@@ -5,6 +5,7 @@
 [![current version](https://badgen.net/npm/v/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
 [![no dependencies](https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green)](https://bundlephobia.com/package/reversible-effect)
 [![tree shaking support](https://badgen.net/bundlephobia/tree-shaking/reversible-effect)](https://bundlephobia.com/package/reversible-effect)
+[![tests](https://badgen.net/github/checks/janpaepke/reversible-effect)](https://github.com/janpaepke/reversible-effect/actions)
 [![types included](https://badgen.net/npm/types/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
 [![MIT license](https://badgen.net/npm/license/reversible-effect)](./LICENSE.md)
 [![gzip bundle size](https://badgen.net/bundlephobia/minzip/reversible-effect?label=size)](https://bundlephobia.com/package/reversible-effect)
