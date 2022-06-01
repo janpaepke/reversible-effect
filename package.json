@@ -23,7 +23,8 @@
 		"prettier:fix": "prettier --write ./src",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
 		"scripts:release(pre)": "npm version prerelease --preid='beta' && npm publish",
-		"prepublishOnly": "npm run lint && npm run prettier && npm run build && npm run test && agadoo"
+		"prepublishOnly": "npm run lint && npm run prettier && npm run build && npm run test && agadoo",
+		"postpublish": "git push --tags"
 	},
 	"repository": {
 		"type": "git",
