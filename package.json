@@ -13,7 +13,7 @@
 	],
 	"scripts": {
 		"start": "npm run dev",
-		"build": "rollup --config rollup.config.ts --configPlugin typescript",
+		"build": "rollup --config rollup.config.ts --configPlugin ts",
 		"dev": "npm run build -- --watch",
 		"test": "jest & tsd",
 		"test:watch": "jest --watch",
@@ -23,7 +23,7 @@
 		"prettier:fix": "prettier --write ./src",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
 		"scripts:release(pre)": "npm version prerelease --preid='beta' && npm publish",
-		"prepublishOnly": "(npm run lint & npm run prettier & npm run build) && npm run test && agadoo"
+		"prepublishOnly": "npm run lint && npm run prettier && npm run build && npm run test && agadoo"
 	},
 	"repository": {
 		"type": "git",
