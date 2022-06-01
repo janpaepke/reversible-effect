@@ -1,30 +1,35 @@
 name: Test CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [12.x, 14.x, 16.x]
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run prettier
-    - run: npm run build
-    - run: npm test
-    - run: npx agadoo
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - name: Install Modules
+              run: npm ci
+            - name: Run ESLint
+              run: npm run lint
+            - name: Run Prettier
+              run: npm run prettier
+            - name: Build Files
+              run: npm run build
+            - name: Run Tests
+              run: npm test
+            - name: Check tree-shakeability
+              run: npx agadoo
