@@ -2,11 +2,18 @@
 
 **A collection of typed utility functions returning a callback to reverse their effect.**
 
-Implementation for:
+[![current version](https://badgen.net/npm/v/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
+[![no dependencies](https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green)](https://bundlephobia.com/package/reversible-effect)
+[![tree shaking support](https://badgen.net/bundlephobia/tree-shaking/reversible-effect)](https://bundlephobia.com/package/reversible-effect)
+[![types included](https://badgen.net/npm/types/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
+[![MIT license](https://badgen.net/npm/license/reversible-effect)](./LICENSE.md)
+[![gzip bundle size](https://badgen.net/bundlephobia/minzip/reversible-effect?label=size)](https://bundlephobia.com/package/reversible-effect)
 
--   addEventListener
--   setTimeout
--   setInterval
+This package includes reversible implementations of:
+
+-   [addEventListener](#addreversibleeventlistener)
+-   [setTimeout](#setreversibletimeout)
+-   [setInterval](#setreversibleinterval)
 
 <hr />
 
@@ -90,7 +97,7 @@ Functions like `setTimeout` or `addEventListener` come with an accompanying func
 
 To be able to use them, you need to keep track of which effect you're trying to reverse, so you can call the right function. Additionally these function also have different interfaces.
 
-To make matters worse, you also need to keep track of references to identify what it is you want to cancel (a `timeoutId` for `clearTimeOut` or the `eventName` as well as the `callback` for `removeEventListener`).
+Additionally you need to keep track of references to identify what it is you want to cancel (a `timeoutId` for `clearTimeOut` or the `eventName` as well as the `callback` for `removeEventListener`).
 
 To make things easier, the functions provided by this package aim to:
 
@@ -165,7 +172,7 @@ useEffect(() => {
 
 Reversible version of `object.addEventListener`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener)
 
-This function has two overloads, which switch based on the provided `target`. If the target is an Object we have an event map for, typescript will both limit the type to the ones that are supported, as well as
+This function has two overloads, which switch based on the provided `target`. If `target` is an object we know the supported event types for, typescript will both limit `type` to supported types and provide the correct event type to the `callback`.
 
 ```ts
 function addReversibleEventListener(
@@ -176,7 +183,7 @@ function addReversibleEventListener(
 ): (options?: boolean | EventListenerOptions) => void;
 ```
 
-If it can't determine the event type, it will fall back to a generic version:
+If we can't determine the event type, it will fall back to a generic version:
 
 ```ts
 function addReversibleEventListener(
@@ -240,6 +247,12 @@ function setReversibleInterval(
 ## Contributing
 
 Improvements or additions are most welcome!
+
+Current list of planned support:
+
+-   [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
+-   [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
+-   [setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate)
 
 This package uses `npm` as its package manager.
 
