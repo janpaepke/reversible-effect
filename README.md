@@ -96,7 +96,7 @@ See [below](#documentation) for available functions and how to use them.
 
 Functions like `setTimeout` or `addEventListener` come with an accompanying function to reverse their effect, like `clearTimeout` or `removeEventListener`.
 
-To be able to use them, you need to keep track of which effect you're trying to reverse, so you can call the right function. Additionally these function also have different interfaces.
+To be able to use them, you need to keep track of which effect you're trying to reverse, so you can call the appropriate function. Additionally these function also have different interfaces.
 
 Additionally you need to keep track of references to identify what it is you want to cancel (a `timeoutId` for `clearTimeOut` or the `eventName` as well as the `callback` for `removeEventListener`).
 
@@ -169,7 +169,7 @@ useEffect(() => {
 
 ### Available functions
 
-#### addReversibleEventListener
+#### `addReversibleEventListener`
 
 Reversible version of `object.addEventListener`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener)
 
@@ -202,26 +202,28 @@ Note that there is shared behaviour with `addEventListener`/`removeEventListener
 
 See below examples for details:
 
-```
+```ts
 const callback = () => console.log('hello');
 const cancel1 = addReversibleEventListener('click', callback);
-const cancel2 = addReversibleEventListener('click', callback);
-//              ⬆ Because the passed callback is the same, it will only execute once, when the event is fired.
 cancel1();
-// ⬆ Even though `cancel2` was technically never called, it can be considered cleaned up and will have no effect.
+const cancel2 = addReversibleEventListener('click', callback);
+const cancel3 = addReversibleEventListener('click', callback);
+//              ⬆ Since the passed arguments are the same, the callback will only be called once, when the event is fired.
+cancel1();
+// ⬆ Even though it has been used before this will remove the listener. It is functionally equivalent to `cancel2` and `cancel3`.
 ```
 
 If you specifically want to add a listener multiple times or make sure a cleanup function only concerns the listener it created, the solution is the same as with the originals – make the callbacks referentially unique:
 
-```
+```ts
 const cancel1 = addReversibleEventListener('click', e => callback(e));
 const cancel2 = addReversibleEventListener('click', e => callback(e));
-//              ⬆ The listener is referentially different, so the callback is executed twice, when the event is fired.
+//              ⬆ The passed parameter is referentially unique, so the callback is executed twice, when the event is fired.
 cancel1();
-// ⬆ This will only cancel the first listener, the second still fires, until `cancel2()` is called.
+// ⬆ This will only ever remove the first listener, the second still fires, until `cancel2()` is called.
 ```
 
-#### setReversibleTimeout
+#### `setReversibleTimeout`
 
 Reversible version of `[window.]setTimeout`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/setTimeout)
 
@@ -233,7 +235,7 @@ function setReversibleTimeout(
 ): () => void;
 ```
 
-#### setReversibleInterval
+#### `setReversibleInterval`
 
 Reversible version of `[window.]setInterval`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/setInterval)
 
