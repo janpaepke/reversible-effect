@@ -213,7 +213,7 @@ cancel1();
 // ⬆ Even though it has been used before this will remove the listener. It is functionally equivalent to `cancel2` and `cancel3`.
 ```
 
-If you specifically want to add a listener multiple times or make sure a cleanup function only concerns the listener it created, the solution is the same as with the originals – make the callbacks referentially unique:
+If you specifically want to add a listener multiple times or make sure a cleanup function only concerns the listener it created, the solution is the same as with the originals – make the callback is referentially unique:
 
 ```ts
 const cancel1 = addReversibleEventListener('click', e => callback(e));
