@@ -61,9 +61,9 @@ Let's find out [how](#documentation) or [why](#motivation).
    - [Basic Usage](#basic-usage)
    - [React's `useEffect`](#reacts-useeffect)
    - [Available functions](#available-functions)
-      - [addReversibleEventListener](#addreversibleeventlistener)
-      - [setReversibleTimeout](#setreversibletimeout)
-      - [setReversibleInterval](#setreversibleinterval)
+      - [`addReversibleEventListener`](#addreversibleeventlistener)
+      - [`setReversibleTimeout`](#setreversibletimeout)
+      - [`setReversibleInterval`](#setreversibleinterval)
 - [Contributing](#contributing)
 - [Support](#support)
 <!-- codegen:end -->
