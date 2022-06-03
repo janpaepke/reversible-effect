@@ -113,7 +113,7 @@ To make things easier, the functions provided by this package aim to:
 
 ### Basic Usage
 
-Every function in this package returns a callback, which serves as the cleanup.
+Every function in this package returns a callback, which serves as its cleanup.
 
 This allows you to do this:
 
@@ -124,7 +124,8 @@ const cancelInterval = setReversibleInterval(() => console.log('called'), 1000);
 cancelInterval();
 ```
 
-Note that you don't have to keep track of a `timeoutID`, you can pass around the cleanup function, without knowing it is an interval you're cancelling.  
+Note that you don't have to keep track of a `timeoutID`, you can pass around a reference to the cleanup function to wherever you need it.  
+You can then call it without needing to know that it is an interval you're cancelling.  
 It would work just the same for an event:
 
 ```ts
@@ -136,8 +137,8 @@ remove();
 
 ### React's `useEffect`
 
-A common use case of these function is within a react's `useEffect` hook, which also uses a return function to reverse an effect.  
-As every function returns its own cleanup, you can return the reversible function directly.
+A common use case of these functions is within a react's `useEffect` hook, which conveniently also uses a return function to reverse the effect.  
+As every function returns its cleanup, you can return the reversible function from the hook directly.
 
 This example will add the event listener, whenever the component mounts and remove it, when it unmounts:
 

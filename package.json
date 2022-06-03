@@ -11,6 +11,19 @@
 		"README.md",
 		"LICENSE.md"
 	],
+	"keywords": [
+		"javascript",
+		"typescript",
+		"utilities",
+		"utility",
+		"effect",
+		"addEventListener",
+		"setTimeout",
+		"setInterval",
+		"requestAnimationFrame",
+		"requestIdleCallback",
+		"setImmediate"
+	],
 	"scripts": {
 		"start": "npm run dev",
 		"build": "rollup --config rollup.config.ts --configPlugin ts",
