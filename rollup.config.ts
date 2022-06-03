@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import bundleSize from 'rollup-plugin-bundle-size';
 import clean from 'rollup-plugin-delete';
+import fileSize from 'rollup-plugin-filesize';
 import license from 'rollup-plugin-license';
 import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-ts';
@@ -27,7 +25,9 @@ export default [
 			clean({
 				targets: `${cfg.compilerOptions.outDir}/*`,
 			}),
-			bundleSize(),
+			fileSize({
+				showMinifiedSize: false,
+			}),
 			ts({
 				hook: {
 					outputPath: (path, kind) => (kind === 'declaration' ? pkg.types : path), // only one single type declaration file, instead of one per output file
