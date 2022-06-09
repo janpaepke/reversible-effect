@@ -12,9 +12,10 @@
 
 This package includes reversible implementations of:
 
--   [addEventListener](#addreversibleeventlistener)
 -   [setTimeout](#setreversibletimeout)
 -   [setInterval](#setreversibleinterval)
+-   [addEventListener](#addreversibleeventlistener)
+-   [requestAnimationFrame](#requestreversibleanimationframe)
 
 <hr />
 
@@ -64,6 +65,7 @@ Let's find out [how](#documentation) or [why](#motivation).
       - [`addReversibleEventListener`](#addreversibleeventlistener)
       - [`setReversibleTimeout`](#setreversibletimeout)
       - [`setReversibleInterval`](#setreversibleinterval)
+      - [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
 - [Contributing](#contributing)
 - [Support](#support)
 <!-- codegen:end -->
@@ -248,13 +250,22 @@ function setReversibleInterval(
 ): () => void;
 ```
 
+#### `requestReversibleAnimationFrame`
+
+Reversible version of `window.requestReversibleAnimationFrame`. [→ docs for original](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
+
+```ts
+function requestReversibleAnimationFrame(
+	callback: (time: DOMHighResTimeStamp): void;, // function to be executed on next repaint
+): () => void;
+```
+
 ## Contributing
 
 Improvements or additions are most welcome!
 
 Current list of planned support:
 
--   [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 -   [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
 -   [setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate)
 
