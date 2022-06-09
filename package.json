@@ -35,11 +35,13 @@
 		"prettier": "prettier --check ./src",
 		"prettier:fix": "prettier --write ./src",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
-		"release:patch": "npm version patch && npm publish",
-		"release:minor": "npm version minor && npm publish",
-		"release:major": "npm version major && npm publish",
-		"prepublishOnly": "npm run lint && npm run prettier && npm run build && npm run test && agadoo",
-		"postpublish": "git push --tags"
+		"scripts:verify": "npm run lint && npm run prettier && npm run build && npm run test && agadoo",
+		"bump:patch": "npm version patch",
+		"bump:minor": "npm version minor",
+		"bump:major": "npm version major",
+		"prepublishOnly": "npm run scripts:verify",
+		"preversion": "npm run scripts:verify",
+		"postversion": "git push && git push --tags"
 	},
 	"repository": {
 		"type": "git",
