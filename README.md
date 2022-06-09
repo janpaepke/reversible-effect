@@ -2,13 +2,13 @@
 
 **A collection of typed utility functions returning a callback to reverse their effect.**
 
-[![current version](https://badgen.net/npm/v/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
-[![no dependencies](https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green)](https://bundlephobia.com/package/reversible-effect)
-[![tree shaking support](https://badgen.net/bundlephobia/tree-shaking/reversible-effect)](https://bundlephobia.com/package/reversible-effect)
-[![tests](https://badgen.net/github/checks/janpaepke/reversible-effect)](https://github.com/janpaepke/reversible-effect/actions)
-[![types included](https://badgen.net/npm/types/reversible-effect)](https://www.npmjs.com/package/reversible-effect)
-[![MIT license](https://badgen.net/npm/license/reversible-effect)](./LICENSE.md)
-[![gzip bundle size](https://badgen.net/bundlephobia/minzip/reversible-effect?label=size)](https://bundlephobia.com/package/reversible-effect)
+[<img alt="current version" src="https://badgen.net/npm/v/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
+[<img alt="no dependencies" src="https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green" />](https://bundlephobia.com/package/reversible-effect)
+[<img alt="tree shaking support" src="https://badgen.net/bundlephobia/tree-shaking/reversible-effect" />](https://bundlephobia.com/package/reversible-effect)
+[<img alt="tests" src="https://badgen.net/github/checks/janpaepke/reversible-effect" />](https://github.com/janpaepke/reversible-effect/actions)
+[<img alt="types included" src="https://badgen.net/npm/types/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
+[<img alt="MIT license" src="https://badgen.net/npm/license/reversible-effect" />](./LICENSE.md)
+[<img alt="gzip bundle size" src="https://badgen.net/bundlephobia/minzip/reversible-effect?label=size" />](https://bundlephobia.com/package/reversible-effect)
 
 This package includes reversible implementations of:
 
@@ -96,11 +96,11 @@ See [below](#documentation) for available functions and how to use them.
 
 Functions like `setTimeout` or `addEventListener` come with an accompanying function to reverse their effect, like `clearTimeout` or `removeEventListener`.
 
-To be able to use them, you need to keep track of which effect you're trying to reverse, so you can call the appropriate function. Additionally these function also have different interfaces.
+To be able to use them, you need to keep track of which effect you're trying to reverse, so you can call the appropriate function. To make matters worse, these functions require different parameters.
 
-Additionally you need to keep track of references to identify what it is you want to cancel (a `timeoutId` for `clearTimeOut` or the `eventName` as well as the `callback` for `removeEventListener`).
+You also need to keep track of all references to identify what it is you want to cancel (a `timeoutId` for `clearTimeOut` or the `eventName` as well as the `callback` for `removeEventListener`).
 
-To make things easier, the functions provided by this package aim to:
+This package and the functions it provides aim to improve this:
 
 -   **Unify the interface**:  
     Doesn't matter what type of effect – just call function to reverse it.
@@ -137,8 +137,8 @@ remove();
 
 ### React's `useEffect`
 
-A common use case of these functions is within a react's `useEffect` hook, which conveniently also uses a return function to reverse the effect.  
-As every function returns its cleanup, you can return the reversible function from the hook directly.
+A common use case of these functions is within a react's `useEffect` hook, which conveniently expects you to return function to reverse the effect.  
+As every function returns its own cleanup, you can return the reversible function from the hook directly.
 
 This example will add the event listener, whenever the component mounts and remove it, when it unmounts:
 
