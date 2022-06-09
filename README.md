@@ -182,7 +182,7 @@ function addReversibleEventListener(
 	type: AvailableEventsForThisTarget, // string literal of available event listeners
 	listener: (e: SpecificEvent) => void, // Callback with Specific Event based on type
 	options?: boolean | AddEventListenerOptions
-): (options?: boolean | EventListenerOptions) => void;
+): () => void;
 ```
 
 If we can't determine the event type, it will fall back to a generic version:
@@ -193,7 +193,7 @@ function addReversibleEventListener(
 	type: string,
 	listener: (e: Event) => void,
 	options?: boolean | AddEventListenerOptions
-): (options?: boolean | EventListenerOptions) => void;
+): () => void;
 ```
 
 Note that there is shared behaviour with `addEventListener`/`removeEventListener` when called with the same arguments:

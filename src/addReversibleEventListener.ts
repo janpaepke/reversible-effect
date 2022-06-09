@@ -38,7 +38,7 @@ type EventMap<T extends TargetsWithSpecificEvents> = Extract<EventMapMap, [T, un
  * @param {*} type type of listener
  * @param {*} listener callback
  * @param {*} options Add Event listener options
- * @returns removeCallback with optional removeEventListener options as parameter
+ * @returns callback to remove event listener
  */
 
 // Overload: Dom Targets with known events
@@ -47,7 +47,7 @@ function addReversibleEventListener<T extends TargetsWithSpecificEvents, K exten
 	type: K,
 	listener: (this: T, ev: EventMap<T>[K]) => unknown,
 	options?: boolean | AddEventListenerOptions
-): (options?: boolean | EventListenerOptions) => void;
+): () => void;
 
 // Overload: generic version
 function addReversibleEventListener(
@@ -55,7 +55,7 @@ function addReversibleEventListener(
 	type: string,
 	listener: EventListenerOrEventListenerObject,
 	options?: boolean | AddEventListenerOptions
-): (options?: boolean | EventListenerOptions) => void;
+): () => void;
 
 // implementation
 function addReversibleEventListener(
@@ -63,9 +63,9 @@ function addReversibleEventListener(
 	type: string,
 	listener: EventListenerOrEventListenerObject,
 	options?: boolean | AddEventListenerOptions
-): (options?: boolean | EventListenerOptions) => void {
+): () => void {
 	target.addEventListener(type, listener, options);
-	return target.removeEventListener.bind(target, type, listener);
+	return target.removeEventListener.bind(target, type, listener, options);
 }
 
 export default addReversibleEventListener;

@@ -2,6 +2,7 @@
  * Creates an interval and returns a function to stop it.
  * @param {*} cb callback
  * @param {*} interval interval in ms
+ * @returns callback to stop interval
  */
 function setReversibleInterval(...args: Parameters<typeof setInterval>): () => void {
 	const ref = global.setInterval(...args);
