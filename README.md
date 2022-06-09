@@ -252,11 +252,11 @@ function setReversibleInterval(
 
 #### `requestReversibleAnimationFrame`
 
-Reversible version of `window.requestReversibleAnimationFrame`. [→ docs for original](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
+Reversible version of `window.requestAnimationFrame`. [→ docs for original](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 
 ```ts
 function requestReversibleAnimationFrame(
-	callback: (time: DOMHighResTimeStamp): void;, // function to be executed on next repaint
+	callback: (time: DOMHighResTimeStamp): void; // function to be executed on next repaint
 ): () => void;
 ```
 
