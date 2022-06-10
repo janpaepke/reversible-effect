@@ -36,9 +36,9 @@
 		"prettier:fix": "prettier --write ./src",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
 		"scripts:verify": "npm run lint && npm run prettier && npm run build && npm run test && agadoo",
-		"bump:patch": "npm version patch",
-		"bump:minor": "npm version minor",
-		"bump:major": "npm version major",
+		"release:patch": "npm version patch",
+		"release:minor": "npm version minor",
+		"release:major": "npm version major",
 		"prepublishOnly": "npm run scripts:verify",
 		"preversion": "npm run scripts:verify",
 		"postversion": "git push && git push --tags"
