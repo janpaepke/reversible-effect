@@ -1,4 +1,4 @@
-name: Test CI
+name: Run Tests
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
         branches: [main]
 
 jobs:
-    build:
+    build-and-test:
         runs-on: ubuntu-latest
 
         strategy:
@@ -17,19 +17,19 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
+                uses: actions/setup-node@v3
+                with:
+                    node-version: ${{ matrix.node-version }}
+                    cache: 'npm'
             - name: Install Modules
-              run: npm ci
+                run: npm ci
             - name: Run ESLint
-              run: npm run lint
+                run: npm run lint
             - name: Run Prettier
-              run: npm run prettier
+                run: npm run prettier
             - name: Build Files
-              run: npm run build
+                run: npm run build
             - name: Run Tests
-              run: npm test
+                run: npm test
             - name: Check tree-shakeability
-              run: npx agadoo
+                run: npx agadoo
