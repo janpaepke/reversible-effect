@@ -1,7 +1,7 @@
 name: Publish to NPM
 
 permissions:
-  contents: write
+    contents: write
 
 on:
     push:
@@ -12,18 +12,18 @@ jobs:
     publish-npm:
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v3
-          - name: Npm Publish
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v3
+            - name: Setup
+              uses: actions/setup-node@v3
               with:
                   node-version: 16
                   registry-url: https://registry.npmjs.org/
-            - run: npm ci
-            - run: npm publish
-            - run: gh release create ${{ github.event. }} --generate-notes
+              run: npm ci
+            - name: Npm Publish
+              run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          - name: Github Release
+            - name: Github Release
               uses: softprops/action-gh-release@v1
               with:
                   generate_release_notes: true
