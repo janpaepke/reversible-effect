@@ -5,7 +5,7 @@
  */
 function requestReversibleAnimationFrame(...args: Parameters<typeof requestAnimationFrame>): () => void {
 	const ref = requestAnimationFrame(...args);
-	return cancelAnimationFrame.bind(window, ref);
+	return cancelAnimationFrame.bind(globalThis, ref);
 }
 
 export default requestReversibleAnimationFrame;
