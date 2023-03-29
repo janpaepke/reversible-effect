@@ -40,7 +40,7 @@
 		"release:minor": "npm version minor",
 		"release:major": "npm version major",
 		"prepublishOnly": "npm run scripts:verify",
-		"preversion": "npm run scripts:verify",
+		"preversion": "npm run scripts:verify && git pull",
 		"postversion": "git push && git push --tags"
 	},
 	"repository": {
