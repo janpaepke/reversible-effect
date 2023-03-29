@@ -4,8 +4,8 @@
  * @returns callback to cancel action
  */
 function requestReversibleAnimationFrame(...args: Parameters<typeof requestAnimationFrame>): () => void {
-	const ref = window.requestAnimationFrame(...args);
-	return window.cancelAnimationFrame.bind(window, ref);
+	const ref = requestAnimationFrame(...args);
+	return cancelAnimationFrame.bind(window, ref);
 }
 
 export default requestReversibleAnimationFrame;
