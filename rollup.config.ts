@@ -1,7 +1,7 @@
+import terser from '@rollup/plugin-terser';
 import clean from 'rollup-plugin-delete';
 import fileSize from 'rollup-plugin-filesize';
 import license from 'rollup-plugin-license';
-import { terser } from 'rollup-plugin-terser';
 import ts from 'rollup-plugin-ts';
 
 import pkg from './package.json';
