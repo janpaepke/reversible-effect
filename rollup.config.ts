@@ -4,8 +4,8 @@ import fileSize from 'rollup-plugin-filesize';
 import license from 'rollup-plugin-license';
 import ts from 'rollup-plugin-ts';
 
-import pkg from './package.json';
-import cfg from './tsconfig.json';
+import pkg from './package.json' assert { type: 'json' };
+import cfg from './tsconfig.json' assert { type: 'json' };
 
 export default [
 	{
