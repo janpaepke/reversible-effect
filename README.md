@@ -56,21 +56,22 @@ Let's find out [how](#documentation) or [why](#motivation).
 
 <!-- prettier-ignore-start -->
 
-<!-- codegen:start {preset: markdownTOC, minDepth: 2, maxDepth: 5} -->
-- [Content](#content)
+<!-- toc -->
+
 - [Installation](#installation)
 - [Motivation](#motivation)
 - [Documentation](#documentation)
-   - [Basic Usage](#basic-usage)
-   - [React's `useEffect`](#reacts-useeffect)
-   - [Available functions](#available-functions)
-      - [`addReversibleEventListener`](#addreversibleeventlistener)
-      - [`setReversibleTimeout`](#setreversibletimeout)
-      - [`setReversibleInterval`](#setreversibleinterval)
-      - [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
+  * [Basic Usage](#basic-usage)
+  * [React's `useEffect`](#reacts-useeffect)
+  * [Available functions](#available-functions)
+    + [`addReversibleEventListener`](#addreversibleeventlistener)
+    + [`setReversibleTimeout`](#setreversibletimeout)
+    + [`setReversibleInterval`](#setreversibleinterval)
+    + [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
 - [Contributing](#contributing)
 - [Support](#support)
-<!-- codegen:end -->
+
+<!-- tocstop -->
 
 <!-- prettier-ignore-end -->
 
