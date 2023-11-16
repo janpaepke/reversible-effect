@@ -38,11 +38,12 @@
 		"toc-check": "npm run toc-generate && git diff --exit-code README.md || (echo 'Error: README.md has changed after generating TOC. Please commit the changes.' && exit 1)",
 		"scripts:update-deps": "npx npm-check --skip-unused -u",
 		"scripts:verify": "npm run lint && npm run prettier && npm run toc-check && npm run build && npm run test && agadoo",
+		"scripts:check-git": "git diff-index --quiet HEAD -- || (echo 'Error: Git repository is not clean. Please commit or stash changes.' && exit 1)",
 		"release:patch": "npm version patch",
 		"release:minor": "npm version minor",
 		"release:major": "npm version major",
 		"prepublishOnly": "npm run scripts:verify",
-		"preversion": "npm run scripts:verify && git pull",
+		"preversion": "npm run scripts:check-git && git pull && npm run scripts:verify",
 		"postversion": "git push && git push --tags"
 	},
 	"repository": {
