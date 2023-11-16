@@ -1,6 +1,8 @@
 # reversible effect ↩️
 
-**A collection of typed utility functions returning a callback to reverse their effect.**
+### Cleanup Utilities for JavaScript Side-Effects
+
+**A zero dependency collection of typed utility functions returning a callback to reverse their effect.**
 
 [<img alt="current version" src="https://badgen.net/npm/v/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
 [<img alt="no dependencies" src="https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green" />](https://bundlephobia.com/package/reversible-effect)
@@ -95,6 +97,8 @@ import { addReversibleEventListener } from 'reversible-effect';
 See [below](#documentation) for available functions and how to use them.
 
 ## Motivation
+
+For a detailed explanation, check out [this Medium article](https://medium.com/@janpaepke/clean-up-after-yourself-e0eaa283e641), but here's the gist of it:
 
 Functions like `setTimeout` or `addEventListener` come with an accompanying function to reverse their effect, like `clearTimeout` or `removeEventListener`.
 
@@ -279,4 +283,4 @@ Create a PR, describing your change.
 
 ## Support
 
-Found a bug or need help? [Add a new issue](issues).
+Found a bug or need help? [Add a new issue](https://github.com/janpaepke/reversible-effect/issues).
