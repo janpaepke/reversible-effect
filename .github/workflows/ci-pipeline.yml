@@ -31,7 +31,7 @@ jobs:
       - name: Run Prettier
         run: npm run prettier
   build:
-    name: Build
+    name: Build Bundle
     needs: setup
     runs-on: ubuntu-latest
     steps:
