@@ -42,6 +42,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dependencies
+      - run: ls -la # Debugging line to see the directory structure
       - name: Build Files
         run: npm run build
       - name: Cache Build Output
