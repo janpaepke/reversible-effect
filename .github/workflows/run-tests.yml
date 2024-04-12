@@ -28,6 +28,7 @@ jobs:
       - name: Run Prettier
         run: npm run prettier
   build:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,6 +50,7 @@ jobs:
           path: dist
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
