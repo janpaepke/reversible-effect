@@ -47,7 +47,7 @@ jobs:
       - name: Cache build folder
         uses: actions/cache@v4
         with:
-          path: build
+          path: dist
           key: build-${{ github.sha }}
       - run: ls -la # Debugging line to see the directory structure
       - name: Build Files
