@@ -105,7 +105,6 @@
 	"prettier": {
 		"semi": true,
 		"useTabs": true,
-		"tabWidth": 4,
 		"printWidth": 120,
 		"bracketSpacing": true,
 		"arrowParens": "avoid",

@@ -1,35 +1,74 @@
 name: Run Tests
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-    build-and-test:
-        runs-on: ubuntu-latest
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install Modules
+        run: npm ci
+      - name: Cache Dependencies
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependencies
+          path: node_modules
+      - name: Run ESLint
+        run: npm run lint
+      - name: Run Prettier
+        run: npm run prettier
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      - name: Get Depdendencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
+      - name: Build Files
+        run: npm run build
+      - name: Cache Build Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
 
-        strategy:
-            matrix:
-                node-version: [16.x, 18.x, 20.x]
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm'
-            - name: Install Modulesc
-              run: npm ci
-            - name: Run ESLint
-              run: npm run lint
-            - name: Run Prettier
-              run: npm run prettier
-            - name: Build Files
-              run: npm run build
-            - name: Run Tests
-              run: npm test
-            - name: Check tree-shakeability
-              run: npx agadoo
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Get Depdendencies
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies
+      - name: Get Build Output
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+      - name: Run Tests
+        run: npm test
+      - name: Check tree-shakeability
+        run: npx agadoo
