@@ -45,11 +45,11 @@ jobs:
       - run: ls -la # Debugging line to see the directory structure
       - name: Build Files
         run: npm run build
-
       - name: Cache build folder
         uses: actions/cache@v4
         with:
           path: build
+          key: build-${{ hashFiles('build/**') }}
 
   test:
     needs: build
@@ -69,11 +69,11 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Get Build Output
-        uses: actions/download-artifact@v4
+      - name: Cache build folder
+        uses: actions/cache@v4
         with:
-          name: build
-          path: dist
+          path: build
+          key: build-${{ hashFiles('build/**') }}
       - name: Run Tests
         run: npm test
       - name: Check tree-shakeability
