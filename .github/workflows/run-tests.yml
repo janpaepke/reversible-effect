@@ -16,14 +16,11 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install Modules
-        run: npm ci
-      - name: Cache Dependencies
-        uses: actions/upload-artifact@v4
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          name: dependencies
-          key: node_modules-${{hashFiles('package-lock.json')}}
           path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Run ESLint
         run: npm run lint
       - name: Run Prettier
@@ -38,19 +35,19 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
-      - name: Get Depdendencies
-        uses: actions/download-artifact@v4
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          name: dependencies
           path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
       - run: ls -la # Debugging line to see the directory structure
       - name: Build Files
         run: npm run build
-      - name: Cache Build Output
-        uses: actions/upload-artifact@v4
+
+      - name: Cache build folder
+        uses: actions/cache@v3
         with:
-          name: dist
-          path: dist
+          path: build
 
   test:
     needs: build
@@ -65,11 +62,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Get Depdendencies
-        uses: actions/download-artifact@v4
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          name: dependencies
           path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Get Build Output
         uses: actions/download-artifact@v4
         with:
