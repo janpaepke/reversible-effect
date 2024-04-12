@@ -22,6 +22,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dependencies
+          key: node_modules-${{hashFiles('package-lock.json')}}
           path: node_modules
       - name: Run ESLint
         run: npm run lint
