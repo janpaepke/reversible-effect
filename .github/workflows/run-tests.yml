@@ -17,13 +17,14 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Cache node modules
+        id: node-modules
         uses: actions/cache@v4
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm ci
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.node-modules.outputs.cache-hit != 'true'
       - name: Run ESLint
         run: npm run lint
       - name: Run Prettier
@@ -43,14 +44,14 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - run: ls -la # Debugging line to see the directory structure
-      - name: Build Files
-        run: npm run build
       - name: Cache build folder
         uses: actions/cache@v4
         with:
           path: build
           key: build-${{ github.sha }}
+      - run: ls -la # Debugging line to see the directory structure
+      - name: Build Files
+        run: npm run build
 
   test:
     needs: build
