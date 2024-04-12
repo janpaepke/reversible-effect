@@ -23,6 +23,8 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
+      - name: BLALBLA
+        run: echo "${{github.ref}}"
       - name: Install Dependencies
         run: npm ci
         if: steps.node-modules.outputs.cache-hit != 'true'
