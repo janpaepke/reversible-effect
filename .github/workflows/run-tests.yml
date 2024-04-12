@@ -16,12 +16,12 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Cache node modules
+      - name: Dependencies Cache
         id: node-modules
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+          key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Install Dependencies
         run: npm ci
         if: steps.node-modules.outputs.cache-hit != 'true'
@@ -39,12 +39,12 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
-      - name: Cache node modules
+      - name: Dependencies Cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache build folder
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+      - name: Build Cache
         uses: actions/cache@v4
         with:
           path: dist
@@ -66,15 +66,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Cache node modules
+      - name: Dependencies Cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache build folder
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+      - name: Build Cache
         uses: actions/cache@v4
         with:
-          path: build
+          path: dist
           key: build-${{ github.sha }}
       - name: Run Tests
         run: npm test
