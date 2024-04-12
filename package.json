@@ -76,7 +76,8 @@
 		"ts-jest": "^29.1.2",
 		"ts-node": "^10.9.2",
 		"tsd": "^0.31.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.4.5",
+		"markdown-toc": "^1.2.0"
 	},
 	"eslintConfig": {
 		"parser": "@typescript-eslint/parser",
@@ -113,8 +114,5 @@
 	},
 	"tsd": {
 		"directory": "test"
-	},
-	"dependencies": {
-		"markdown-toc": "^1.2.0"
 	}
 }
