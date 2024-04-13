@@ -28,6 +28,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
         if: steps.node-modules.outputs.cache-hit != 'true'
+      - name: Purge Camo Image Badge Cache
+        uses: kevincobain2000/action-camo-purge@v1
       - name: Run ESLint
         run: npm run lint
       - name: Run Prettier
