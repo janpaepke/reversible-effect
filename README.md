@@ -5,7 +5,7 @@
 **A zero dependency collection of typed utility functions returning a callback to reverse their effect.**
 
 [<img alt="current version" src="https://badgen.net/npm/v/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
-[<img alt="no dependencies" src="https://badgen.net//bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green" />](https://bundlephobia.com/package/reversible-effect)
+[<img alt="no dependencies" src="https://badgen.net/bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green" />](https://bundlephobia.com/package/reversible-effect)
 [<img alt="tree shaking support" src="https://badgen.net/bundlephobia/tree-shaking/reversible-effect" />](https://bundlephobia.com/package/reversible-effect)
 [<img alt="tests" src="https://badgen.net/github/checks/janpaepke/reversible-effect" />](https://github.com/janpaepke/reversible-effect/actions)
 [<img alt="types included" src="https://badgen.net/npm/types/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
@@ -14,10 +14,10 @@
 
 This package includes reversible implementations of:
 
--   [setTimeout](#setreversibletimeout)
--   [setInterval](#setreversibleinterval)
--   [addEventListener](#addreversibleeventlistener)
--   [requestAnimationFrame](#requestreversibleanimationframe)
+- [setTimeout](#setreversibletimeout)
+- [setInterval](#setreversibleinterval)
+- [addEventListener](#addreversibleeventlistener)
+- [requestAnimationFrame](#requestreversibleanimationframe)
 
 <hr />
 
@@ -109,12 +109,12 @@ You also need to keep track of all references to identify what it is you want to
 
 This package and the functions it provides aim to improve this:
 
--   **Unify the interface**:  
-    Doesn't matter what type of effect – just call function to reverse it.
--   **Simplify the implementation**:  
-    No need to keep track of timeout IDs or callback references.
--   **Provide type security**:  
-    When using typescript the respective function parameters should mirror the behaviour of their originals.
+- **Unify the interface**:  
+  Doesn't matter what type of effect – just call function to reverse it.
+- **Simplify the implementation**:  
+  No need to keep track of timeout IDs or callback references.
+- **Provide type security**:  
+  When using typescript the respective function parameters should mirror the behaviour of their originals.
 
 ## Documentation
 
@@ -271,8 +271,8 @@ Improvements or additions are most welcome!
 
 Current list of planned support:
 
--   [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
--   [setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate)
+- [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
+- [setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate)
 
 This package uses `npm` as its package manager.
 
