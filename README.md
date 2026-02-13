@@ -18,6 +18,7 @@ This package includes reversible implementations of:
 - [setInterval](#setreversibleinterval)
 - [addEventListener](#addreversibleeventlistener)
 - [requestAnimationFrame](#requestreversibleanimationframe)
+- [requestIdleCallback](#requestreversibleidlecallback)
 
 <hr />
 
@@ -68,6 +69,7 @@ Let's find out [how](#documentation) or [why](#motivation).
     - [`setReversibleTimeout`](#setreversibletimeout)
     - [`setReversibleInterval`](#setreversibleinterval)
     - [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
+    - [`requestReversibleIdleCallback`](#requestreversibleidlecallback)
 - [Contributing](#contributing)
 - [Support](#support)
 
@@ -265,13 +267,20 @@ function requestReversibleAnimationFrame(
 ): () => void;
 ```
 
+#### `requestReversibleIdleCallback`
+
+Reversible version of `window.requestIdleCallback`. [→ docs for original](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
+
+```ts
+function requestReversibleIdleCallback(
+	callback: (deadline: IdleDeadline) => void, // function to be called during idle periods
+	options?: { timeout?: number } // optional timeout to ensure execution
+): () => void;
+```
+
 ## Contributing
 
 Improvements or additions are most welcome!
-
-Current list of planned support:
-
-- [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
 
 This package uses `npm` as its package manager.
 
