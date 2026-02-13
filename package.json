@@ -21,8 +21,7 @@
 		"setTimeout",
 		"setInterval",
 		"requestAnimationFrame",
-		"requestIdleCallback",
-		"setImmediate"
+		"requestIdleCallback"
 	],
 	"scripts": {
 		"start": "npm run dev",

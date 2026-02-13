@@ -16,7 +16,7 @@ addReversibleEventListener(new HTMLElement(), 'drag', e => expectType<DragEvent>
 // HTMLMediaElement
 addReversibleEventListener(new Audio(), 'encrypted', e => expectType<MediaEncryptedEvent>(e));
 // HTMLVideoElement
-addReversibleEventListener(new HTMLVideoElement(), 'enterpictureinpicture', e => expectType<Event>(e));
+addReversibleEventListener(new HTMLVideoElement(), 'enterpictureinpicture', e => expectType<PictureInPictureEvent>(e));
 addReversibleEventListener(new HTMLVideoElement(), 'encrypted', e => expectType<MediaEncryptedEvent>(e));
 // IDBOpenDBRequest
 addReversibleEventListener(indexedDB.open(''), 'upgradeneeded', e => expectType<IDBVersionChangeEvent>(e));
@@ -34,7 +34,7 @@ addReversibleEventListener(new SVGSVGElement(), 'storage', e => expectType<Stora
 addReversibleEventListener(new ServiceWorker(), 'statechange', e => expectType<Event>(e));
 addReversibleEventListener(new ServiceWorker(), 'error', e => expectType<ErrorEvent>(e));
 // Window
-addReversibleEventListener(window, 'click', e => expectType<MouseEvent>(e));
+addReversibleEventListener(window, 'click', e => expectType<PointerEvent>(e));
 addReversibleEventListener(window, 'abort', e => expectType<UIEvent>(e));
 // Worker
 addReversibleEventListener(new Worker(''), 'message', e => expectType<MessageEvent>(e));

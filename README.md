@@ -1,6 +1,6 @@
 # reversible effect ↩️
 
-<h3>Cleanup Utilities for JavaScript Side-Effects</h3>
+<h3>Self-Cleanup for JavaScript Side-Effects</h3>
 
 **A zero dependency collection of typed utility functions returning a callback to reverse their effect.**
 
@@ -167,7 +167,7 @@ If you have multiple effects, you could either define multiple `useEffect` hooks
 ```ts
 useEffect(() => {
 	const cancelTimeout = setReversibleTimeout(() => {}, 1000);
-	const removeEventListener = addEventListener(window, 'click', () => {});
+	const removeEventListener = addReversibleEventListener(window, 'click', () => {});
 	return () => {
 		cancelTimeout();
 		removeEventListener();
@@ -212,10 +212,10 @@ See below examples for details:
 
 ```ts
 const callback = () => console.log('hello');
-const cancel1 = addReversibleEventListener('click', callback);
+const cancel1 = addReversibleEventListener(window, 'click', callback);
 cancel1();
-const cancel2 = addReversibleEventListener('click', callback);
-const cancel3 = addReversibleEventListener('click', callback);
+const cancel2 = addReversibleEventListener(window, 'click', callback);
+const cancel3 = addReversibleEventListener(window, 'click', callback);
 //              ⬆ Since the passed arguments are the same, the callback will only be called once, when the event is fired.
 cancel1();
 // ⬆ Even though it has been used before this will remove the listener. It is functionally equivalent to `cancel2` and `cancel3`.
@@ -224,8 +224,8 @@ cancel1();
 If you specifically want to add a listener multiple times or make sure a cleanup function only concerns the listener it created, the solution is the same as with the originals – make the callback is referentially unique:
 
 ```ts
-const cancel1 = addReversibleEventListener('click', e => callback(e));
-const cancel2 = addReversibleEventListener('click', e => callback(e));
+const cancel1 = addReversibleEventListener(window, 'click', e => callback(e));
+const cancel2 = addReversibleEventListener(window, 'click', e => callback(e));
 //              ⬆ The passed parameter is referentially unique, so the callback is executed twice, when the event is fired.
 cancel1();
 // ⬆ This will only ever remove the first listener, the second still fires, until `cancel2()` is called.
@@ -261,7 +261,7 @@ Reversible version of `window.requestAnimationFrame`. [→ docs for original](ht
 
 ```ts
 function requestReversibleAnimationFrame(
-	callback: (time: DOMHighResTimeStamp): void; // function to be executed on next repaint
+	callback: (time: DOMHighResTimeStamp) => void // function to be executed on next repaint
 ): () => void;
 ```
 
@@ -272,7 +272,6 @@ Improvements or additions are most welcome!
 Current list of planned support:
 
 - [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
-- [setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate)
 
 This package uses `npm` as its package manager.
 
