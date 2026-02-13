@@ -5,7 +5,8 @@
 		"strict": true,
 		"removeComments": false,
 		"esModuleInterop": true,
-		"moduleResolution": "node",
+		"module": "preserve",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"forceConsistentCasingInFileNames": true,
 		"declaration": true

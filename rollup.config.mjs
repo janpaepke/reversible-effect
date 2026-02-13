@@ -1,11 +1,13 @@
+import path from 'node:path';
 import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
+import { dts } from 'rollup-plugin-dts';
 import clean from 'rollup-plugin-delete';
-import fileSize from 'rollup-plugin-filesize';
+import bundleSize from 'rollup-plugin-bundle-size';
 import license from 'rollup-plugin-license';
-import ts from 'rollup-plugin-ts';
 
-import pkg from './package.json' assert { type: 'json' };
-import cfg from './tsconfig.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
+import cfg from './tsconfig.json' with { type: 'json' };
 
 export default [
 	{
@@ -25,14 +27,8 @@ export default [
 			clean({
 				targets: `${cfg.compilerOptions.outDir}/*`,
 			}),
-			fileSize({
-				showMinifiedSize: false,
-			}),
-			ts({
-				hook: {
-					outputPath: (path, kind) => (kind === 'declaration' ? pkg.types : path), // only one single type declaration file, instead of one per output file
-				},
-			}),
+			bundleSize(),
+			typescript(),
 			terser(),
 			license({
 				banner: {
@@ -44,5 +40,11 @@ export default [
 				},
 			}),
 		],
+	},
+	// Bundle all .d.ts files into a single index.d.ts
+	{
+		input: pkg.types,
+		output: { file: pkg.types, format: 'es' },
+		plugins: [dts(), clean({ targets: [`${path.dirname(pkg.types)}/*.d.ts`, `!${pkg.types}`], hook: 'writeBundle' })],
 	},
 ];
