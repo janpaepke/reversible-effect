@@ -1,6 +1,6 @@
 # reversible effect ↩️
 
-### Cleanup Utilities for JavaScript Side-Effects
+<h3>Cleanup Utilities for JavaScript Side-Effects</h3>
 
 **A zero dependency collection of typed utility functions returning a callback to reverse their effect.**
 
@@ -52,7 +52,7 @@ Let's find out [how](#documentation) or [why](#motivation).
 
 <hr />
 
-## Content
+<h2>Content</h2>
 
 <!-- prettier-ignore-start -->
 
@@ -61,13 +61,13 @@ Let's find out [how](#documentation) or [why](#motivation).
 - [Installation](#installation)
 - [Motivation](#motivation)
 - [Documentation](#documentation)
-  * [Basic Usage](#basic-usage)
-  * [React's `useEffect`](#reacts-useeffect)
-  * [Available functions](#available-functions)
-    + [`addReversibleEventListener`](#addreversibleeventlistener)
-    + [`setReversibleTimeout`](#setreversibletimeout)
-    + [`setReversibleInterval`](#setreversibleinterval)
-    + [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
+  - [Basic Usage](#basic-usage)
+  - [React's `useEffect`](#reacts-useeffect)
+  - [Available functions](#available-functions)
+    - [`addReversibleEventListener`](#addreversibleeventlistener)
+    - [`setReversibleTimeout`](#setreversibletimeout)
+    - [`setReversibleInterval`](#setreversibleinterval)
+    - [`requestReversibleAnimationFrame`](#requestreversibleanimationframe)
 - [Contributing](#contributing)
 - [Support](#support)
 
