@@ -36,4 +36,9 @@ describe('setReversibleInterval', () => {
 		jest.runOnlyPendingTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('cancel is idempotent', () => {
+		const cancel = setReversibleInterval(jest.fn(), 1000);
+		cancel();
+		cancel(); // second call should not throw
+	});
 });

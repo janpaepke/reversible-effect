@@ -40,4 +40,9 @@ describe('requestReversibleAnimationFrame', () => {
 		jest.runOnlyPendingTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('cancel is idempotent', () => {
+		const cancel = requestReversibleAnimationFrame(jest.fn());
+		cancel();
+		cancel(); // second call should not throw
+	});
 });

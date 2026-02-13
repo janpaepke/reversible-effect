@@ -52,4 +52,9 @@ describe('requestReversibleIdleCallback', () => {
 		idleCallback?.(fakeDeadline);
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('cancel is idempotent', () => {
+		const cancel = requestReversibleIdleCallback(jest.fn());
+		cancel();
+		cancel(); // second call should not throw
+	});
 });

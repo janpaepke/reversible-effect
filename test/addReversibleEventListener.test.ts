@@ -8,7 +8,7 @@ afterEach(() => {
 	jest.resetModules();
 });
 
-describe('setReversibleTimeout', () => {
+describe('addReversibleEventListener', () => {
 	test('triggers', () => {
 		const callback = jest.fn();
 		const event = new MouseEvent('click');

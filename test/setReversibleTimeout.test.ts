@@ -37,4 +37,9 @@ describe('setReversibleTimeout', () => {
 		jest.runAllTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('cancel is idempotent', () => {
+		const cancel = setReversibleTimeout(jest.fn(), 1000);
+		cancel();
+		cancel(); // second call should not throw
+	});
 });
