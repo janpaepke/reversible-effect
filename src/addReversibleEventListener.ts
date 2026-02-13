@@ -32,13 +32,13 @@ type TargetsWithSpecificEvents = EventMapMap[0];
 type EventMap<T extends TargetsWithSpecificEvents> = Extract<EventMapMap, [T, unknown]>[1];
 
 /**
- * Adds the passed listener as an event listener to the passed event target, and returns a function which reverses the
- * effect of this function.
- * @param {*} target object the listener should be attached to
- * @param {*} type type of listener
- * @param {*} listener callback
- * @param {*} options Add Event listener options
+ * Adds an event listener and returns a function to remove it.
+ * @param target - object the listener should be attached to
+ * @param type - event type
+ * @param listener - event handler callback
+ * @param options - addEventListener options
  * @returns callback to remove event listener
+ * @see https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener
  */
 
 // Overload: Dom Targets with known events
