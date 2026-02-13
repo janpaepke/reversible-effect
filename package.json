@@ -59,13 +59,13 @@
 	"contributors": [],
 	"homepage": "https://github.com/janpaepke/reversible-effect#readme",
 	"devDependencies": {
+		"@eslint/js": "^9.39.2",
 		"@rollup/plugin-terser": "^0.4.4",
 		"@rollup/plugin-typescript": "^12.3.0",
 		"@types/jest": "^30.0.0",
-		"@typescript-eslint/eslint-plugin": "^8.55.0",
-		"@typescript-eslint/parser": "^8.55.0",
 		"agadoo": "^3.0.0",
 		"eslint": "^9.39.2",
+		"globals": "^17.3.0",
 		"jest": "^30.2.0",
 		"jest-environment-jsdom": "^30.2.0",
 		"markdown-toc-gen": "^1.2.0",
@@ -78,29 +78,8 @@
 		"ts-jest": "^29.4.6",
 		"ts-node": "^10.9.2",
 		"tsd": "^0.33.0",
-		"typescript": "^5.9.3"
-	},
-	"eslintConfig": {
-		"parser": "@typescript-eslint/parser",
-		"parserOptions": {
-			"ecmaVersion": 9,
-			"sourceType": "module",
-			"ecmaFeatures": {
-				"impliedStrict": true
-			}
-		},
-		"env": {
-			"es6": true,
-			"node": true,
-			"browser": true
-		},
-		"extends": [
-			"eslint:recommended",
-			"plugin:@typescript-eslint/recommended"
-		],
-		"plugins": [
-			"@typescript-eslint"
-		]
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.55.0"
 	},
 	"prettier": {
 		"semi": true,
