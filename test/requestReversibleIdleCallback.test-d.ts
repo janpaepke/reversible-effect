@@ -1,12 +1,8 @@
-import { expectType } from 'tsd';
-
-/**
- * type tests
- */
+import { expectTypeOf } from 'vitest';
 import { requestReversibleIdleCallback } from '..';
 
-expectType<() => void>(requestReversibleIdleCallback(() => void null));
-expectType<() => void>(requestReversibleIdleCallback(() => void null, { timeout: 1000 }));
+expectTypeOf(requestReversibleIdleCallback(() => void null)).toEqualTypeOf<() => void>();
+expectTypeOf(requestReversibleIdleCallback(() => void null, { timeout: 1000 })).toEqualTypeOf<() => void>();
 
 const inferParam = <T>(fun: (cb: T) => () => void) => void fun as unknown as T;
-expectType<IdleRequestCallback>(inferParam(requestReversibleIdleCallback));
+expectTypeOf(inferParam(requestReversibleIdleCallback)).toEqualTypeOf<IdleRequestCallback>();

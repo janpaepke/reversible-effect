@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
+import { describe, test, expect, beforeAll, afterEach, vi } from 'vitest';
 import { requestReversibleIdleCallback } from '..';
 
 // jsdom doesn't support requestIdleCallback, so we mock it
@@ -9,16 +6,16 @@ let idleHandle = 0;
 let idleCallback: IdleRequestCallback | null = null;
 
 beforeAll(() => {
-	window.requestIdleCallback = jest.fn((cb: IdleRequestCallback) => {
+	window.requestIdleCallback = vi.fn((cb: IdleRequestCallback) => {
 		idleCallback = cb;
 		return ++idleHandle;
 	});
-	window.cancelIdleCallback = jest.fn(() => {
+	window.cancelIdleCallback = vi.fn(() => {
 		idleCallback = null;
 	});
 });
 afterEach(() => {
-	jest.resetAllMocks();
+	vi.resetAllMocks();
 	idleCallback = null;
 });
 
@@ -29,7 +26,7 @@ const fakeDeadline: IdleDeadline = {
 
 describe('requestReversibleIdleCallback', () => {
 	test('triggers', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		requestReversibleIdleCallback(callback);
 		expect(requestIdleCallback).toHaveBeenCalledTimes(1);
 		expect(requestIdleCallback).toHaveBeenLastCalledWith(callback);
@@ -38,12 +35,12 @@ describe('requestReversibleIdleCallback', () => {
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
 	test('passes options', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		requestReversibleIdleCallback(callback, { timeout: 1000 });
 		expect(requestIdleCallback).toHaveBeenCalledWith(callback, { timeout: 1000 });
 	});
 	test('cancels', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		const cancel = requestReversibleIdleCallback(callback);
 		expect(callback).not.toHaveBeenCalled();
 		expect(cancelIdleCallback).not.toHaveBeenCalled();
@@ -53,7 +50,7 @@ describe('requestReversibleIdleCallback', () => {
 		expect(callback).not.toHaveBeenCalled();
 	});
 	test('cancel is idempotent', () => {
-		const cancel = requestReversibleIdleCallback(jest.fn());
+		const cancel = requestReversibleIdleCallback(vi.fn());
 		cancel();
 		cancel(); // second call should not throw
 	});

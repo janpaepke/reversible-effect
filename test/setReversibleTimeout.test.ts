@@ -1,44 +1,45 @@
+import { describe, test, expect, beforeAll, afterAll, afterEach, vi } from 'vitest';
 import { setReversibleTimeout } from '..';
 
 beforeAll(() => {
-	jest.useFakeTimers();
+	vi.useFakeTimers();
 });
 afterAll(() => {
-	jest.useRealTimers();
+	vi.useRealTimers();
 });
 afterEach(() => {
-	jest.resetAllMocks();
+	vi.resetAllMocks();
 });
 
 describe('setReversibleTimeout', () => {
 	test('triggers', () => {
-		const callback = jest.fn();
-		jest.spyOn(global, 'setTimeout');
+		const callback = vi.fn();
+		vi.spyOn(global, 'setTimeout');
 		setReversibleTimeout(callback, 1000);
 		expect(setTimeout).toHaveBeenCalledTimes(1);
 		expect(setTimeout).toHaveBeenLastCalledWith(callback, 1000);
 		expect(callback).not.toHaveBeenCalled();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		expect(callback).toHaveBeenCalled();
 		// shouldn't trigger again...
-		jest.runAllTimers();
-		jest.runAllTimers();
-		jest.runAllTimers();
+		vi.runAllTimers();
+		vi.runAllTimers();
+		vi.runAllTimers();
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
 	test('cancels', () => {
-		const callback = jest.fn();
-		jest.spyOn(global, 'clearTimeout');
+		const callback = vi.fn();
+		vi.spyOn(global, 'clearTimeout');
 		const cancel = setReversibleTimeout(callback, 1000);
 		expect(callback).not.toHaveBeenCalled();
 		expect(clearTimeout).not.toHaveBeenCalled();
 		cancel();
 		expect(clearTimeout).toHaveBeenCalledTimes(1);
-		jest.runAllTimers();
+		vi.runAllTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
 	test('cancel is idempotent', () => {
-		const cancel = setReversibleTimeout(jest.fn(), 1000);
+		const cancel = setReversibleTimeout(vi.fn(), 1000);
 		cancel();
 		cancel(); // second call should not throw
 	});

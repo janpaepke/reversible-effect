@@ -1,19 +1,16 @@
-/**
- * @jest-environment jsdom
- */
-
+import { describe, test, expect, afterEach, vi } from 'vitest';
 import { addReversibleEventListener } from '..';
 
 afterEach(() => {
-	jest.resetModules();
+	vi.resetModules();
 });
 
 describe('addReversibleEventListener', () => {
 	test('triggers', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		const event = new MouseEvent('click');
 		const options = { passive: true };
-		jest.spyOn(window, 'addEventListener');
+		vi.spyOn(window, 'addEventListener');
 		expect(addEventListener).not.toHaveBeenCalled();
 		addReversibleEventListener(window, 'click', callback, options);
 		expect(addEventListener).toHaveBeenCalledTimes(1);
@@ -26,9 +23,9 @@ describe('addReversibleEventListener', () => {
 		expect(callback).toHaveBeenCalledTimes(2);
 	});
 	test('cancels', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		const event = new MouseEvent('click');
-		jest.spyOn(window, 'removeEventListener');
+		vi.spyOn(window, 'removeEventListener');
 		expect(removeEventListener).not.toHaveBeenCalled();
 		const cancel = addReversibleEventListener(window, 'click', callback);
 		expect(removeEventListener).not.toHaveBeenCalled();
@@ -38,7 +35,7 @@ describe('addReversibleEventListener', () => {
 		expect(callback).not.toHaveBeenCalled();
 	});
 	test('predictably overlaps', () => {
-		const callback = jest.fn();
+		const callback = vi.fn();
 		const event = new MouseEvent('click');
 		const options = { passive: true };
 		const cancel1 = addReversibleEventListener(window, 'click', callback, options);

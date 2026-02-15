@@ -1,8 +1,4 @@
-import { expectType } from 'tsd';
-
-/**
- * type tests
- */
+import { expectTypeOf } from 'vitest';
 import { setReversibleInterval } from '..';
 
-expectType<() => void>(setReversibleInterval(() => void null));
+expectTypeOf(setReversibleInterval(() => void null)).toEqualTypeOf<() => void>();
