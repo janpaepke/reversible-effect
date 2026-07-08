@@ -114,7 +114,8 @@ jobs:
     needs: [test, smoke-test]
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # create the GitHub release
+      id-token: write # OIDC trusted publishing to npm (no token)
     steps:
       - uses: actions/checkout@v7
       - name: Use Node.js 24
@@ -122,16 +123,15 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org/'
-          cache: 'npm'
       - name: Download build artifact
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
       - name: NPM Publish
+        # Auth is via OIDC (id-token) — no NODE_AUTH_TOKEN. npm also attaches
+        # a provenance statement automatically under trusted publishing.
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Github Release
         uses: softprops/action-gh-release@v3
         with:
