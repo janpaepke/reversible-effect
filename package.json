@@ -6,6 +6,9 @@
 	"main": "./dist/reversible.umd.js",
 	"module": "./dist/reversible.esm.js",
 	"types": "./dist/index.d.ts",
+	"engines": {
+		"node": ">=16"
+	},
 	"files": [
 		"dist",
 		"README.md",
@@ -28,6 +31,7 @@
 		"build": "rollup -c",
 		"dev": "npm run build -- --watch",
 		"test": "vitest run",
+		"test:smoke": "node scripts/smoke-test.cjs",
 		"test:types": "vitest --typecheck --run",
 		"test:watch": "vitest",
 		"lint": "eslint src/**/*.ts",
