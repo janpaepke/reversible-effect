@@ -136,5 +136,3 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
-      - name: Purge Camo Image Badge Cache
-        uses: kevincobain2000/action-camo-purge@v1
