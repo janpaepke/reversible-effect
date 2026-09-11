@@ -8,8 +8,7 @@
 		"module": "preserve",
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
-		"forceConsistentCasingInFileNames": true,
-		"declaration": true
+		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["src/**/*"]
 }

@@ -7,5 +7,5 @@
 		"lib": ["esnext"],
 		"types": ["node"]
 	},
-	"files": ["consumer.ts"]
+	"files": ["consumer.ts", "esm-consumer.mts"]
 }

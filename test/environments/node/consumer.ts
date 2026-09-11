@@ -5,7 +5,7 @@ import {
 	requestReversibleIdleCallback,
 	setReversibleInterval,
 	setReversibleTimeout,
-} from '../../../dist/index.js';
+} from 'reversible-effect';
 
 // timers keep Node's signatures, including extra arguments passed on to the callback
 export const cancelTimeout: () => void = setReversibleTimeout(() => void null, 10);

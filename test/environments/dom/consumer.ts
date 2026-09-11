@@ -1,5 +1,5 @@
 // Consumes the published declarations in a browser environment, including an augmented event map.
-import { addReversibleEventListener, requestReversibleAnimationFrame } from '../../../dist/index.js';
+import { addReversibleEventListener, requestReversibleAnimationFrame } from 'reversible-effect';
 
 declare global {
 	interface WindowEventMap {

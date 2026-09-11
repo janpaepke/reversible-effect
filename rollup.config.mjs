@@ -1,4 +1,3 @@
-import path from 'node:path';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { dts } from 'rollup-plugin-dts';
@@ -9,14 +8,22 @@ import license from 'rollup-plugin-license';
 import pkg from './package.json' with { type: 'json' };
 import cfg from './tsconfig.json' with { type: 'json' };
 
+/*
+ * Node picks the entry point through `exports`, which serves ESM importers the `.mjs` build (Node cannot see the named
+ * exports of the UMD build) with `.d.mts` declarations. `main`, `module` and `types` point to the same files for tools
+ * without `exports`.
+ */
+const esmEntry = pkg.exports['.'].import;
+const input = './src/index.ts';
+
 export default [
 	{
-		input: './src/index.ts',
+		input,
 		output: [
 			{
 				format: 'umd',
 				file: pkg.main,
-				name: pkg.title, // var name of browser global
+				name: pkg.name.replace(/-(\w)/g, (_, letter) => letter.toUpperCase()), // browser global: reversibleEffect
 			},
 			{
 				format: 'esm',
@@ -41,10 +48,17 @@ export default [
 			}),
 		],
 	},
-	// Bundle all .d.ts files into a single index.d.ts
+	/*
+	 * Generate the declarations from source, bundled into one file per entry point and named after the bundle it
+	 * describes (as TypeScript pairs them): TypeScript takes the module format of a declaration file from its extension,
+	 * so each entry needs its own.
+	 */
 	{
-		input: pkg.types,
-		output: { file: pkg.types, format: 'es' },
-		plugins: [dts(), clean({ targets: [`${path.dirname(pkg.types)}/*.d.ts`, `!${pkg.types}`], hook: 'writeBundle' })],
+		input,
+		output: [
+			{ file: pkg.types, format: 'es' },
+			{ file: esmEntry.types, format: 'es' },
+		],
+		plugins: [dts()],
 	},
 ];

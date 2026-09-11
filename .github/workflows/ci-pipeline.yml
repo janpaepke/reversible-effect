@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         # vitest 4 requires Node ^20 || ^22 || >=24. Older runtimes are covered
-        # by the smoke-test job against the built bundle.
+        # by the runtime-test job against the built bundle.
         node-version: [20, 22, 24]
     steps:
       - uses: actions/checkout@v7
@@ -83,19 +83,24 @@ jobs:
       - name: Run Tests
         run: npm test
       - name: Check Types
-        # test:env type-checks the built declarations as consumed from DOM, Node and bare environments
+        # test:env type-checks the built declarations as consumed from DOM, Node, web worker and bare environments
         run: npm run test:types && npm run test:env
+      - name: Run Runtime Test
+        run: npm run test:runtime
+      - name: Check Package Exports
+        # types and runtime entry points agree for require, import and bundlers
+        run: npm run test:package
       - name: Check tree-shakeability
         run: npx agadoo
 
-  smoke-test:
-    name: Smoke Test (legacy Node)
+  runtime-test:
+    name: Runtime Test (legacy Node)
     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         # Runtimes the library supports but the vitest toolchain can't run on.
-        # Exercises the built bundle directly to prove it still loads and works.
+        # Loads the built package via require and import to prove it still works.
         node-version: [16, 18]
     steps:
       - uses: actions/checkout@v7
@@ -108,13 +113,13 @@ jobs:
         with:
           name: dist
           path: dist
-      - name: Run Smoke Test
-        run: npm run test:smoke
+      - name: Run Runtime Test
+        run: npm run test:runtime
 
   publish-npm:
     name: Publish to NPM
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [test, smoke-test]
+    needs: [test, runtime-test]
     runs-on: ubuntu-latest
     permissions:
       contents: write # create the GitHub release

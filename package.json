@@ -3,9 +3,23 @@
 	"title": "reversible effect",
 	"version": "2.1.2",
 	"description": "A collection of typed utility functions returning a callback to reverse their effect.",
-	"main": "./dist/reversible.umd.js",
-	"module": "./dist/reversible.esm.js",
-	"types": "./dist/index.d.ts",
+	"main": "./dist/reversible-effect.js",
+	"module": "./dist/reversible-effect.mjs",
+	"types": "./dist/reversible-effect.d.ts",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/reversible-effect.d.mts",
+				"default": "./dist/reversible-effect.mjs"
+			},
+			"require": {
+				"types": "./dist/reversible-effect.d.ts",
+				"default": "./dist/reversible-effect.js"
+			}
+		},
+		"./dist/*": "./dist/*",
+		"./package.json": "./package.json"
+	},
 	"sideEffects": false,
 	"engines": {
 		"node": ">=16"
@@ -32,18 +46,18 @@
 		"build": "rollup -c",
 		"dev": "npm run build -- --watch",
 		"test": "vitest run",
-		"test:smoke": "node scripts/smoke-test.cjs",
+		"test:runtime": "node test/runtime/require.cjs && node test/runtime/import.mjs",
+		"test:package": "attw --pack .",
 		"test:types": "vitest --typecheck --run",
 		"test:env": "tsc -p test/environments/dom && tsc -p test/environments/node && tsc -p test/environments/bare && tsc -p test/environments/webworker",
-		"generate:event-maps": "node scripts/generate-event-maps.mjs",
+		"test:toc": "markdown-toc-gen check README.md",
 		"test:watch": "vitest",
 		"lint": "eslint src/**/*.ts",
 		"lint:fix": "npm run lint -- --fix",
 		"prettier": "prettier --check ./src",
 		"prettier:fix": "prettier --write ./src",
-		"toc-generate": "markdown-toc-gen insert README.md",
-		"toc-check": "markdown-toc-gen check README.md",
-		"scripts:update-deps": "npx npm-check --skip-unused -u",
+		"generate:event-maps": "node scripts/generate-event-maps.mjs",
+		"generate:toc": "markdown-toc-gen insert README.md",
 		"scripts:check-git": "git diff-index --quiet HEAD -- || (echo 'Error: Git repository is not clean. Please commit or stash changes.' && exit 1)",
 		"release:patch": "npm version patch",
 		"release:minor": "npm version minor",
@@ -66,6 +80,7 @@
 	"contributors": [],
 	"homepage": "https://github.com/janpaepke/reversible-effect#readme",
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.5",
 		"@eslint/js": "^10.0.1",
 		"@rollup/plugin-terser": "^1.0.0",
 		"@rollup/plugin-typescript": "^12.3.0",

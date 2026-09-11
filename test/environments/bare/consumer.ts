@@ -1,5 +1,5 @@
 // Consumes the published declarations with neither DOM nor Node globals.
-import { addReversibleEventListener, setReversibleTimeout } from '../../../dist/index.js';
+import { addReversibleEventListener, setReversibleTimeout } from 'reversible-effect';
 
 // without a native EventTarget, any structurally compatible target is accepted
 const emitter = {

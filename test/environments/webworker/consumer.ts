@@ -1,5 +1,5 @@
 // Consumes the published declarations inside a dedicated web worker.
-import { addReversibleEventListener, setReversibleTimeout } from '../../../dist/index.js';
+import { addReversibleEventListener, setReversibleTimeout } from 'reversible-effect';
 
 // the worker's global scope receives typed messages
 addReversibleEventListener(self, 'message', event => {
