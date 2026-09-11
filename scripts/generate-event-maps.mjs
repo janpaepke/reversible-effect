@@ -17,7 +17,8 @@ import { fileURLToPath } from 'node:url';
 import prettier from 'prettier';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const typescriptLib = dirname(createRequire(import.meta.url).resolve('typescript'));
+/* asked through the compiler API: the `typescript` package may be an API shim that ships no lib files of its own */
+const typescriptLib = dirname(createRequire(import.meta.url)('typescript').getDefaultLibFilePath({}));
 
 /**
  * TypeScript lib files to read, the type check file generated for each environment, and pairs every lib must

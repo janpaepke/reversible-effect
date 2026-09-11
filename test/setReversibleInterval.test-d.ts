@@ -1,4 +1,6 @@
-import { expectTypeOf } from 'vitest';
+import { expectTypeOf, test } from 'vitest';
 import { setReversibleInterval } from '..';
 
-expectTypeOf(setReversibleInterval(() => void null)).toEqualTypeOf<() => void>();
+test('setReversibleInterval returns a reverse callback', () => {
+	expectTypeOf(setReversibleInterval(() => void null)).toEqualTypeOf<() => void>();
+});

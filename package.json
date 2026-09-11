@@ -42,14 +42,15 @@
 		"requestIdleCallback"
 	],
 	"scripts": {
-		"start": "npm run dev",
-		"build": "rollup -c",
 		"dev": "npm run build -- --watch",
+		"build": "rollup -c",
 		"test": "vitest run",
 		"test:runtime": "node test/runtime/require.cjs && node test/runtime/import.mjs",
 		"test:package": "attw --pack .",
 		"test:types": "vitest --typecheck --run",
-		"test:env": "tsc -p test/environments/dom && tsc -p test/environments/node && tsc -p test/environments/bare && tsc -p test/environments/webworker",
+		"test:env": "npm run test:env:ts7 && npm run test:env:ts6",
+		"test:env:ts7": "tsc -p test/environments/dom && tsc -p test/environments/node && tsc -p test/environments/bare && tsc -p test/environments/webworker",
+		"test:env:ts6": "tsc6 -p test/environments/dom && tsc6 -p test/environments/node && tsc6 -p test/environments/bare && tsc6 -p test/environments/webworker",
 		"test:toc": "markdown-toc-gen check README.md",
 		"test:watch": "vitest",
 		"lint": "eslint src/**/*.ts",
@@ -85,22 +86,23 @@
 		"@rollup/plugin-terser": "^1.0.0",
 		"@rollup/plugin-typescript": "^12.3.0",
 		"@types/node": "^24.13.4",
+		"@typescript/native": "npm:typescript@^7.0.2",
 		"agadoo": "^3.0.0",
-		"eslint": "^10.6.0",
+		"eslint": "^10.10.0",
 		"expect-type": "^1.4.0",
-		"globals": "^17.7.0",
-		"jsdom": "^29.1.1",
+		"globals": "^17.12.0",
+		"jsdom": "^30.0.1",
 		"markdown-toc-gen": "^1.2.0",
-		"prettier": "^3.9.4",
-		"rollup": "^4.62.2",
+		"prettier": "^3.9.6",
+		"rollup": "^4.63.1",
 		"rollup-plugin-bundle-size": "^1.0.3",
 		"rollup-plugin-delete": "^3.0.2",
-		"rollup-plugin-dts": "^6.4.1",
+		"rollup-plugin-dts": "^6.5.1",
 		"rollup-plugin-license": "^3.7.1",
 		"tslib": "^2.8.1",
-		"typescript": "^6.0.3",
-		"typescript-eslint": "^8.63.0",
-		"vitest": "^4.1.10"
+		"typescript": "npm:@typescript/typescript6@^6.0.2",
+		"typescript-eslint": "^8.70.0",
+		"vitest": "^5.0.0"
 	},
 	"prettier": {
 		"semi": true,
@@ -112,5 +114,8 @@
 		"endOfLine": "auto",
 		"singleQuote": true,
 		"trailingComma": "es5"
+	},
+	"allowScripts": {
+		"fsevents": false
 	}
 }
