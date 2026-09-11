@@ -7,6 +7,7 @@ import type { GlobalParameters } from './environment';
  * @see https://developer.mozilla.org/docs/Web/API/setTimeout
  */
 function setReversibleTimeout(...args: GlobalParameters<'setTimeout'>): () => void {
+	// eslint-disable-next-line @typescript-eslint/no-implied-eval -- the arguments are the original's, which accepts a string handler in browsers
 	const ref = setTimeout(...args);
 	return clearTimeout.bind(globalThis, ref); // timeout-IDs are unique and never reused. multiple calls to clear with the same ID will have no effect.
 }

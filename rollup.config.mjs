@@ -1,7 +1,7 @@
+import { rmSync } from 'node:fs';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { dts } from 'rollup-plugin-dts';
-import clean from 'rollup-plugin-delete';
 import bundleSize from 'rollup-plugin-bundle-size';
 import license from 'rollup-plugin-license';
 
@@ -16,6 +16,12 @@ import cfg from './tsconfig.json' with { type: 'json' };
 const esmEntry = pkg.exports['.'].import;
 const input = './src/index.ts';
 
+/** Empties the output directory before a build; rollup only replaces the files it writes itself. */
+const cleanOutput = {
+	name: 'clean-output',
+	buildStart: () => rmSync(cfg.compilerOptions.outDir, { force: true, recursive: true }),
+};
+
 export default [
 	{
 		input,
@@ -24,19 +30,20 @@ export default [
 				format: 'umd',
 				file: pkg.main,
 				name: pkg.name.replace(/-(\w)/g, (_, letter) => letter.toUpperCase()), // browser global: reversibleEffect
+				sourcemap: true,
+				// minified for browsers loading it as-is; the ESM build stays readable, as bundlers minify it themselves
+				plugins: [terser()],
 			},
 			{
 				format: 'esm',
 				file: pkg.module,
+				sourcemap: true,
 			},
 		],
 		plugins: [
-			clean({
-				targets: `${cfg.compilerOptions.outDir}/*`,
-			}),
+			cleanOutput,
 			bundleSize(),
 			typescript(),
-			terser(),
 			license({
 				banner: {
 					commentStyle: 'ignored',
@@ -59,6 +66,7 @@ export default [
 			{ file: pkg.types, format: 'es' },
 			{ file: esmEntry.types, format: 'es' },
 		],
-		plugins: [dts()],
+		// isolatedDeclarations keeps the public API's types explicit, so the declarations never depend on inference
+		plugins: [dts({ compilerOptions: { isolatedDeclarations: true } })],
 	},
 ];
