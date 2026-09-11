@@ -63,9 +63,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # vitest 4 requires Node ^20 || ^22 || >=24. Older runtimes are covered
+        # jsdom's undici requires Node >=22.19. Older runtimes are covered
         # by the runtime-test job against the built bundle.
-        node-version: [20, 22, 24]
+        node-version: [22, 24, 26]
     steps:
       - uses: actions/checkout@v7
       - name: Use Node.js ${{ matrix.node-version }}
@@ -101,7 +101,7 @@ jobs:
       matrix:
         # Runtimes the library supports but the vitest toolchain can't run on.
         # Loads the built package via require and import to prove it still works.
-        node-version: [16, 18]
+        node-version: [16, 18, 20]
     steps:
       - uses: actions/checkout@v7
       - name: Use Node.js ${{ matrix.node-version }}
