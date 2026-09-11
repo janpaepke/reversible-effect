@@ -1,21 +1,5 @@
-import type { GlobalInstance, GlobalValue } from './environment';
-
-type EventMapMap =
-	| [GlobalInstance<'Document'>, DocumentEventMap]
-	| [GlobalInstance<'HTMLBodyElement'>, HTMLBodyElementEventMap]
-	| [GlobalInstance<'HTMLElement'>, HTMLElementEventMap]
-	| [GlobalInstance<'HTMLMediaElement'>, HTMLMediaElementEventMap]
-	| [GlobalInstance<'HTMLVideoElement'>, HTMLVideoElementEventMap]
-	| [GlobalInstance<'IDBOpenDBRequest'>, IDBOpenDBRequestEventMap]
-	| [GlobalInstance<'MathMLElement'>, MathMLElementEventMap]
-	| [GlobalInstance<'OfflineAudioContext'>, OfflineAudioContextEventMap]
-	| [GlobalInstance<'SVGElement'>, SVGElementEventMap]
-	| [GlobalInstance<'SVGSVGElement'>, SVGSVGElementEventMap]
-	| [GlobalInstance<'ServiceWorker'>, ServiceWorkerEventMap]
-	| [GlobalInstance<'Window'>, WindowEventMap]
-	| [GlobalValue<'window'>, WindowEventMap] // includes globalThis
-	| [GlobalInstance<'Worker'>, WorkerEventMap]
-	| [GlobalInstance<'XMLHttpRequest'>, XMLHttpRequestEventMap];
+import type { GlobalInstance } from './environment';
+import type { EventMapMap } from './eventMaps.generated';
 
 /*
  * Listener and option types follow the environment's own EventTarget (DOM or Node). Environments without one fall
@@ -42,7 +26,24 @@ interface GenericInterface {
 }
 
 type TargetsWithSpecificEvents = EventMapMap[0];
-type EventMap<T extends TargetsWithSpecificEvents> = Extract<EventMapMap, [T, unknown]>[1];
+
+type UnionToIntersection<U> = (U extends unknown ? (union: U) => void : never) extends (intersection: infer I) => void
+	? I
+	: never;
+
+/*
+ * The event maps of every known target `T` is assignable to, merged. Matching supertypes (rather than `T` itself)
+ * covers subclasses as well — including ones the list cannot know, such as custom elements — and resolves to the most
+ * specific map, since event maps extend their parents'. `T` is wrapped to keep a union target from distributing.
+ */
+type MatchingEventMaps<T> = EventMapMap extends infer Pair
+	? Pair extends [infer Target, infer Map]
+		? [T] extends [Target]
+			? Map
+			: never
+		: never
+	: never;
+export type EventMapOf<T> = UnionToIntersection<MatchingEventMaps<T>>;
 
 /**
  * Adds an event listener and returns a function to remove it.
@@ -55,10 +56,10 @@ type EventMap<T extends TargetsWithSpecificEvents> = Extract<EventMapMap, [T, un
  */
 
 // Overload: Dom Targets with known events
-function addReversibleEventListener<T extends TargetsWithSpecificEvents, K extends keyof EventMap<T>>(
+function addReversibleEventListener<T extends TargetsWithSpecificEvents, K extends keyof EventMapOf<T>>(
 	target: T,
 	type: K,
-	listener: (this: T, ev: EventMap<T>[K]) => unknown,
+	listener: (this: T, ev: EventMapOf<T>[K]) => unknown,
 	options?: AddListenerOptions
 ): () => void;
 

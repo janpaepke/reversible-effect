@@ -184,7 +184,8 @@ useEffect(() => {
 
 Reversible version of `object.addEventListener`. [→ docs for original](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener)
 
-This function has two overloads, which switch based on the provided `target`. If `target` is an object we know the supported event types for, typescript will both limit `type` to supported types and provide the correct event type to the `callback`.
+This function has two overloads, which switch based on the provided `target`. If `target` is an object we know the supported event types for, typescript will both limit `type` to supported types and provide the correct event type to the `callback`.  
+Known are all event targets of TypeScript's DOM and web worker declarations, including their subclasses and your own custom elements.
 
 ```ts
 function addReversibleEventListener(
@@ -288,6 +289,8 @@ This package uses `npm` as its package manager.
 Fork / Clone the repo, run `npm install`, then `npm start` to build in watch mode.
 
 Run `npm run test:watch` to run the tests, don't forget to add new tests, if you add functionality.
+
+The known event targets are generated from TypeScript's own declarations. After upgrading TypeScript, run `npm run generate:event-maps` – `npm test` fails while they are outdated.
 
 Create a PR, describing your change.
 

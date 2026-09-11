@@ -46,6 +46,22 @@ addReversibleEventListener(window, 'click', e => expectTypeOf(e).toEqualTypeOf<P
 addReversibleEventListener(window, 'abort', e => expectTypeOf(e).toEqualTypeOf<UIEvent>());
 // augmented event map
 addReversibleEventListener(window, 'test:augmented', e => expectTypeOf(e).toEqualTypeOf<CustomEvent<number>>());
+// subclasses with members of their own get their parent's events
+addReversibleEventListener(document.createElement('div'), 'keydown', e =>
+	expectTypeOf(e).toEqualTypeOf<KeyboardEvent>()
+);
+// so do custom elements
+class CustomElement extends HTMLElement {
+	custom = true;
+}
+addReversibleEventListener(new CustomElement(), 'focus', e => expectTypeOf(e).toEqualTypeOf<FocusEvent>());
+// WebSocket, MediaQueryList
+addReversibleEventListener(new WebSocket(''), 'message', e => expectTypeOf(e).toEqualTypeOf<MessageEvent>());
+addReversibleEventListener(matchMedia(''), 'change', e => expectTypeOf(e).toEqualTypeOf<MediaQueryListEvent>());
+// unknown event names fall back to the generic overload
+addReversibleEventListener(document.createElement('div'), 'custom-event', e => expectTypeOf(e).toEqualTypeOf<Event>());
+// @ts-expect-error a keydown listener receives a KeyboardEvent
+addReversibleEventListener(document.createElement('div'), 'keydown', (e: MouseEvent) => void e);
 // Worker
 addReversibleEventListener(new Worker(''), 'message', e => expectTypeOf(e).toEqualTypeOf<MessageEvent>());
 // XMLHttpRequest

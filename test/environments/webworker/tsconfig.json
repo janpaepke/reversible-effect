@@ -4,7 +4,7 @@
 		"noEmit": true,
 		"skipLibCheck": false,
 		"module": "nodenext",
-		"lib": ["esnext", "dom"],
+		"lib": ["esnext", "webworker"],
 		"types": []
 	},
 	"files": ["consumer.ts", "eventMaps.generated.ts"]

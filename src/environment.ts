@@ -12,9 +12,6 @@
 
 type Globals = typeof globalThis;
 
-/** Type of the global value `K`, or `never` where the environment has no such global. */
-export type GlobalValue<K extends string> = K extends keyof Globals ? Globals[K] : never;
-
 /** Instance type of the global class `K`, or `never` where the environment has no such class. */
 export type GlobalInstance<K extends string> = K extends keyof Globals
 	? Globals[K] extends { prototype: infer Instance }
@@ -22,33 +19,24 @@ export type GlobalInstance<K extends string> = K extends keyof Globals
 		: never
 	: never;
 
-/** Parameters of the global function `K`, or `never` (uncallable) where the environment has no such function. */
-export type GlobalParameters<K extends string> = K extends keyof Globals
-	? Globals[K] extends (...args: infer Args) => unknown
-		? Args
-		: never
-	: never;
-
 /*
- * Event maps are interfaces, not values, so they cannot be looked up through `globalThis`. Empty declarations make
- * their names resolve everywhere: where the environment provides them, these merge with the real maps (including
- * any augmentations, such as custom events a bundler adds to `WindowEventMap`); elsewhere they stay empty and unused.
+ * Parameters of every overload of `F`, as a union of tuples. `Parameters<F>` only sees the last overload, which e.g.
+ * drops the extra callback arguments Node's `setTimeout` accepts.
  */
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-declare global {
-	interface DocumentEventMap {}
-	interface HTMLBodyElementEventMap {}
-	interface HTMLElementEventMap {}
-	interface HTMLMediaElementEventMap {}
-	interface HTMLVideoElementEventMap {}
-	interface IDBOpenDBRequestEventMap {}
-	interface MathMLElementEventMap {}
-	interface OfflineAudioContextEventMap {}
-	interface SVGElementEventMap {}
-	interface SVGSVGElementEventMap {}
-	interface ServiceWorkerEventMap {}
-	interface WindowEventMap {}
-	interface WorkerEventMap {}
-	interface XMLHttpRequestEventMap {}
+type OverloadParameters<F> = F extends {
+	(...args: infer A1): unknown;
+	(...args: infer A2): unknown;
+	(...args: infer A3): unknown;
+	(...args: infer A4): unknown;
 }
-/* eslint-enable @typescript-eslint/no-empty-object-type */
+	? A1 | A2 | A3 | A4
+	: F extends { (...args: infer A1): unknown; (...args: infer A2): unknown; (...args: infer A3): unknown }
+		? A1 | A2 | A3
+		: F extends { (...args: infer A1): unknown; (...args: infer A2): unknown }
+			? A1 | A2
+			: F extends (...args: infer A1) => unknown
+				? A1
+				: never;
+
+/** Parameters of the global function `K` (any of its overloads), or `never` (uncallable) where it does not exist. */
+export type GlobalParameters<K extends string> = K extends keyof Globals ? OverloadParameters<Globals[K]> : never;
