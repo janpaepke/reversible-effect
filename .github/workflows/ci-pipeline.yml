@@ -82,6 +82,9 @@ jobs:
           path: dist
       - name: Run Tests
         run: npm test
+      - name: Check Types
+        # test:env type-checks the built declarations as consumed from DOM, Node and bare environments
+        run: npm run test:types && npm run test:env
       - name: Check tree-shakeability
         run: npx agadoo
 

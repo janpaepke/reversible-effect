@@ -1,6 +1,12 @@
 import { expectTypeOf } from 'vitest';
 import { addReversibleEventListener } from '..';
 
+declare global {
+	interface WindowEventMap {
+		'test:augmented': CustomEvent<number>;
+	}
+}
+
 expectTypeOf(addReversibleEventListener(window, 'click', () => void null)).toEqualTypeOf<() => void>();
 
 // Document
@@ -38,6 +44,8 @@ addReversibleEventListener(new ServiceWorker(), 'error', e => expectTypeOf(e).to
 // Window
 addReversibleEventListener(window, 'click', e => expectTypeOf(e).toEqualTypeOf<PointerEvent>());
 addReversibleEventListener(window, 'abort', e => expectTypeOf(e).toEqualTypeOf<UIEvent>());
+// augmented event map
+addReversibleEventListener(window, 'test:augmented', e => expectTypeOf(e).toEqualTypeOf<CustomEvent<number>>());
 // Worker
 addReversibleEventListener(new Worker(''), 'message', e => expectTypeOf(e).toEqualTypeOf<MessageEvent>());
 // XMLHttpRequest

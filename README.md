@@ -116,7 +116,8 @@ This package and the functions it provides aim to improve this:
 - **Simplify the implementation**:  
   No need to keep track of timeout IDs or callback references.
 - **Provide type security**:  
-  When using typescript the respective function parameters should mirror the behaviour of their originals.
+  When using typescript the respective function parameters should mirror the behaviour of their originals.  
+  The types adapt to the consuming project's environment (browser, Node, or neither) – no DOM lib required.
 
 ## Documentation
 
