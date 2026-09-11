@@ -83,9 +83,3 @@ function addReversibleEventListener(
 }
 
 export default addReversibleEventListener;
-
-// TODO: inference of generics function properties seems to break
-// below example cannot resolve TouchEvent for `event` param in callback
-// const test = <T extends HTMLElement>(x: T) => {
-// 	addReversibleEventListener(x, 'touchcancel', event => {});
-// };

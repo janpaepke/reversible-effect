@@ -97,6 +97,21 @@ Just import the required function from the package, here's an example for `addRe
 import { addReversibleEventListener } from 'reversible-effect';
 ```
 
+CommonJS is still served, for projects that can't use ES modules:
+
+```js
+const { addReversibleEventListener } = require('reversible-effect');
+```
+
+And without a build step, a plain `<script>` tag exposes the functions as `reversibleEffect`:
+
+```html
+<script src="https://unpkg.com/reversible-effect"></script>
+<script>
+	const remove = reversibleEffect.addReversibleEventListener(window, 'click', () => console.log('clicked'));
+</script>
+```
+
 See [below](#documentation) for available functions and how to use them.
 
 ## Motivation
@@ -196,6 +211,8 @@ function addReversibleEventListener(
 ): () => void;
 ```
 
+The event type is resolved from the `target` you pass in, so a target whose type is still generic at the call site – like `<T extends HTMLElement>(element: T) => …` – falls back to the generic version below. Typescript cannot resolve the conditional types involved while `T` is unknown.
+
 If we can't determine the event type, it will fall back to a generic version:
 
 ```ts
@@ -272,6 +289,8 @@ function requestReversibleAnimationFrame(
 #### `requestReversibleIdleCallback`
 
 Reversible version of `window.requestIdleCallback`. [→ docs for original](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback)
+
+Note that `requestIdleCallback` itself is [unavailable in Safari](https://caniuse.com/requestidlecallback), where calling this throws – feature detect (or polyfill), if you support it.
 
 ```ts
 function requestReversibleIdleCallback(
