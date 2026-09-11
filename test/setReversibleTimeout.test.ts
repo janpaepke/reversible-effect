@@ -38,6 +38,14 @@ describe('setReversibleTimeout', () => {
 		vi.runAllTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('passes extra arguments on to the callback', () => {
+		const callback = vi.fn();
+		vi.spyOn(global, 'setTimeout');
+		setReversibleTimeout(callback, 1000, 'an argument', 2);
+		expect(setTimeout).toHaveBeenLastCalledWith(callback, 1000, 'an argument', 2);
+		vi.runAllTimers();
+		expect(callback).toHaveBeenCalledWith('an argument', 2);
+	});
 	test('cancel is idempotent', () => {
 		const cancel = setReversibleTimeout(vi.fn(), 1000);
 		cancel();

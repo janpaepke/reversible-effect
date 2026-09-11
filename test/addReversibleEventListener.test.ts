@@ -34,6 +34,26 @@ describe('addReversibleEventListener', () => {
 		window.dispatchEvent(event);
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('cancels a capturing listener', () => {
+		const callback = vi.fn();
+		const options = { capture: true }; // a listener is only removed when the capture flag matches
+		const removeSpy = vi.spyOn(window, 'removeEventListener');
+		const cancel = addReversibleEventListener(window, 'click', callback, options);
+		cancel();
+		expect(removeSpy).toHaveBeenLastCalledWith('click', callback, options);
+		window.dispatchEvent(new MouseEvent('click'));
+		expect(callback).not.toHaveBeenCalled();
+		removeSpy.mockRestore();
+	});
+	test('accepts a listener object', () => {
+		const listener = { handleEvent: vi.fn() };
+		const cancel = addReversibleEventListener(window, 'click', listener);
+		window.dispatchEvent(new MouseEvent('click'));
+		expect(listener.handleEvent).toHaveBeenCalledTimes(1);
+		cancel();
+		window.dispatchEvent(new MouseEvent('click'));
+		expect(listener.handleEvent).toHaveBeenCalledTimes(1);
+	});
 	test('predictably overlaps', () => {
 		const callback = vi.fn();
 		const event = new MouseEvent('click');

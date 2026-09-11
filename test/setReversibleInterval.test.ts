@@ -37,6 +37,14 @@ describe('setReversibleInterval', () => {
 		vi.runOnlyPendingTimers();
 		expect(callback).not.toHaveBeenCalled();
 	});
+	test('passes extra arguments on to the callback', () => {
+		const callback = vi.fn();
+		vi.spyOn(global, 'setInterval');
+		setReversibleInterval(callback, 1000, 'an argument', 2);
+		expect(setInterval).toHaveBeenLastCalledWith(callback, 1000, 'an argument', 2);
+		vi.runOnlyPendingTimers();
+		expect(callback).toHaveBeenCalledWith('an argument', 2);
+	});
 	test('cancel is idempotent', () => {
 		const cancel = setReversibleInterval(vi.fn(), 1000);
 		cancel();

@@ -37,6 +37,19 @@ function runRuntimeChecks(lib, loader) {
 	assert.strictEqual(typeof cancelInterval, 'function', 'setReversibleInterval did not return a reverse callback');
 	cancelInterval();
 
+	// addReversibleEventListener: the generic overload takes any event target — here Node's own.
+	const target = new EventTarget();
+	let events = 0;
+	const removeListener = lib.addReversibleEventListener(target, 'ping', () => {
+		events++;
+	});
+	assert.strictEqual(typeof removeListener, 'function', 'addReversibleEventListener did not return a reverse callback');
+	target.dispatchEvent(new Event('ping'));
+	assert.strictEqual(events, 1, 'listener did not receive the event');
+	removeListener();
+	target.dispatchEvent(new Event('ping'));
+	assert.strictEqual(events, 1, 'reversed listener should not have received the event');
+
 	// Give the cancelled timers a window in which they would have fired if not reversed.
 	setTimeout(() => {
 		assert.strictEqual(timeoutFired, false, 'reversed timeout should not have fired');
