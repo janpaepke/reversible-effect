@@ -1,7 +1,7 @@
 {
 	"name": "reversible-effect",
 	"title": "reversible effect",
-	"version": "2.1.2",
+	"version": "2.2.0",
 	"description": "A collection of typed utility functions returning a callback to reverse their effect.",
 	"type": "commonjs",
 	"main": "./dist/reversible-effect.js",
