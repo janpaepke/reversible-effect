@@ -4,13 +4,13 @@
 
 **A zero dependency collection of typed utility functions returning a callback to reverse their effect.**
 
-[<img alt="current version" src="https://badgen.net/npm/v/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
-[<img alt="no dependencies" src="https://badgen.net/bundlephobia/dependency-count/reversible-effect?label=dependencies&color=green" />](https://bundlephobia.com/package/reversible-effect)
-[<img alt="tree shaking support" src="https://badgen.net/bundlephobia/tree-shaking/reversible-effect" />](https://bundlephobia.com/package/reversible-effect)
-[<img alt="tests" src="https://badgen.net/github/checks/janpaepke/reversible-effect" />](https://github.com/janpaepke/reversible-effect/actions)
-[<img alt="types included" src="https://badgen.net/npm/types/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
-[<img alt="MIT license" src="https://badgen.net/npm/license/reversible-effect" />](./LICENSE.md)
-[<img alt="gzip bundle size" src="https://badgen.net/bundlephobia/minzip/reversible-effect?label=size" />](https://bundlephobia.com/package/reversible-effect)
+[<img alt="current version" src="https://img.shields.io/npm/v/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
+[<img alt="no dependencies" src="https://img.shields.io/badge/dependencies-0-brightgreen" />](https://www.npmjs.com/package/reversible-effect?activeTab=dependencies)
+[<img alt="tree shaking support" src="https://img.shields.io/badge/tree_shaking-supported-brightgreen" />](https://bundlejs.com/?q=reversible-effect)
+[<img alt="tests" src="https://img.shields.io/github/actions/workflow/status/janpaepke/reversible-effect/ci-pipeline.yml?branch=main&label=tests" />](https://github.com/janpaepke/reversible-effect/actions/workflows/ci-pipeline.yml)
+[<img alt="types included" src="https://img.shields.io/npm/types/reversible-effect" />](https://www.npmjs.com/package/reversible-effect)
+[<img alt="MIT license" src="https://img.shields.io/npm/l/reversible-effect" />](./LICENSE.md)
+[<img alt="gzip bundle size" src="https://img.shields.io/bundlejs/size/reversible-effect?label=size" />](https://bundlejs.com/?q=reversible-effect)
 
 This package includes reversible implementations of:
 
